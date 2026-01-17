@@ -52,6 +52,9 @@
             --md-sys-elevation-1: 0px 1px 3px 1px rgba(0, 0, 0, 0.15), 0px 1px 2px 0px rgba(0, 0, 0, 0.3);
             --md-sys-elevation-2: 0px 2px 6px 2px rgba(0, 0, 0, 0.15), 0px 1px 2px 0px rgba(0, 0, 0, 0.3);
             --md-sys-elevation-3: 0px 1px 3px 0px rgba(0, 0, 0, 0.3), 0px 4px 8px 3px rgba(0, 0, 0, 0.15);
+            
+            --lyric-active-color: var(--md-sys-color-primary);
+            --lyric-active-blur: 0px;
         }
 
         @font-face {
@@ -61,7 +64,7 @@
 
         body {
             font-family: 'Roboto', 'PingFang-SC', system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
-            background: url("https://www.dmoe.cc/random.php?type=phone&sex=1") center/cover fixed no-repeat;
+            background: var(--md-sys-color-background) center/cover fixed no-repeat;
             min-height: 100vh;
             color: var(--md-sys-color-on-background);
             margin: 0;
@@ -112,7 +115,7 @@
         .top-bar a {
             color: var(--md-sys-color-primary);
             text-decoration: none;
-            padding: 10px 24px;
+            padding: 10px 16px;
             border-radius: var(--md-sys-shape-corner-full);
             background-color: transparent;
             color: var(--md-sys-color-primary);
@@ -267,19 +270,58 @@
             margin: 1.5rem 0;
         }
         
-        .aplayer .aplayer-body {
-            background: transparent !important;
+        .aplayer .aplayer-body,
+        .aplayer .aplayer-list {
+            background-color: var(--md-sys-color-surface-container) !important;
         }
 
         .lyric-box {
             max-height: 300px;
-            overflow-y: auto;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
             padding: 16px;
             background: var(--md-sys-color-surface-container-high);
             border-radius: var(--md-sys-shape-corner-medium);
             color: var(--md-sys-color-on-surface-variant);
             margin: 1rem 0;
             border: none;
+            position: relative;
+            text-align: center;
+        }
+
+        .lyric-scroll-area {
+            overflow-y: auto;
+            flex: 1;
+            position: relative;
+            scroll-behavior: smooth;
+            width: 100%;
+        }
+
+        .lyric-line {
+            padding: 8px 0;
+            transition: all 0.3s ease;
+            opacity: 0.5;
+            cursor: pointer;
+            font-size: 16px;
+            line-height: 1.8;
+        }
+
+        .lyric-line.active {
+            opacity: 1;
+            font-size: 20px;
+            font-weight: bold;
+            color: var(--lyric-active-color) !important;
+            text-shadow: 0 0 var(--lyric-active-blur) var(--lyric-active-color);
+            transform: scale(1.05);
+        }
+        
+        .lyric-settings {
+            background: var(--md-sys-color-surface-container-low);
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            display: none;
         }
 
         .text-tips {
@@ -352,7 +394,7 @@
 <body>
     <div class="top-bar">
         <span>Manhole-Cover</span>
-        <a href="../frontside/public/index.html">BACK</a>
+        <a href="#" id="dl-bg">DLBG</a>
     </div>
     
     <div class="container">
@@ -366,7 +408,6 @@
         <div class="list">
             <div class="header">
                 <h1>网易云聚合搜索</h1>
-                <p class="text-tips">歌单，单曲，ALL IN ONE</p>
                 <div class="api-switch mb-3">
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="radio" name="apiType" id="playlistApi" value="playlist" checked>
@@ -434,8 +475,33 @@
             </div>
 
             <div class="lyric-box">
-                <h5>歌词</h5>
-                <div id="lyric" class="text-secondary"></div>
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <div class="d-flex align-items-center">
+                        <h5 class="mb-0 me-2">歌词</h5>
+                        <button class="btn btn-sm btn-outline-secondary" id="toggle-lyric-settings" style="padding: 2px 6px; font-size: 12px;">
+                            ⚙️ 设置
+                        </button>
+                    </div>
+                    <div class="btn-group btn-group-sm">
+                        <button class="btn btn-outline-primary active" id="show-lrc-meta">元数据</button>
+                        <button class="btn btn-outline-primary" id="show-lrc-text">纯文本</button>
+                    </div>
+                </div>
+                <div class="lyric-settings" id="lyric-settings-panel">
+                    <div class="row g-2 align-items-center">
+                        <div class="col-auto"><label class="form-label mb-0 small">高亮颜色</label></div>
+                        <div class="col-auto">
+                            <input type="color" class="form-control form-control-color form-control-sm" id="lyric-color-picker" value="#005ac1" title="选择颜色">
+                        </div>
+                        <div class="col-auto ms-3"><label class="form-label mb-0 small">光晕强度</label></div>
+                        <div class="col">
+                            <input type="range" class="form-range" id="lyric-glow-range" min="0" max="20" step="1" value="0">
+                        </div>
+                    </div>
+                </div>
+                <div class="lyric-scroll-area">
+                    <div id="lyric" class="text-secondary" style="white-space: pre-wrap;"></div>
+                </div>
             </div>
         </div>
     </div>
@@ -452,6 +518,27 @@
             let isSequentialPlay = false;
             let isRandomPlay = false;
             let aplayerInstance = null;
+            let currentLyricRaw = '';
+            let parsedLyrics = [];
+
+            // Initialize Background and Download Button
+            const bgUrl = "https://www.dmoe.cc/random.php?type=phone&sex=1";
+            
+            // Fetch as blob immediately to ensure consistency between display and download
+            fetch(bgUrl)
+                .then(response => response.blob())
+                .then(blob => {
+                    const objectUrl = URL.createObjectURL(blob);
+                    $('body').css('background-image', `url(${objectUrl})`);
+                    $('#dl-bg').attr('href', objectUrl).attr('download', `background_${Date.now()}.jpg`);
+                    $('#dl-bg').off('click');
+                })
+                .catch(err => {
+                    console.error("Background fetch failed", err);
+                    // Fallback: Load via URL directly if fetch fails (e.g. CORS)
+                    $('body').css('background-image', `url(${bgUrl})`);
+                    $('#dl-bg').attr('href', bgUrl).attr('target', '_blank');
+                });
 
             function updateMediaSession(data) {
                 if ('mediaSession' in navigator) {
@@ -514,8 +601,15 @@
 
                 aplayerInstance = new APlayer({
                     container: document.getElementById('aplayer'),
-                    lrcType: 1,
                     fixed: true,
+                });
+
+                // Bind APlayer UI buttons to custom playback logic
+                $('#aplayer').on('click', '.aplayer-icon-forward', function() {
+                    playNextSong();
+                });
+                $('#aplayer').on('click', '.aplayer-icon-back', function() {
+                    playPreviousSong();
                 });
 
                 if ('mediaSession' in navigator) {
@@ -540,6 +634,26 @@
                 });
                 aplayerInstance.on('ended', playNextSong);
                 aplayerInstance.on('timeupdate', updatePositionState);
+                
+                // Lyrics Sync Logic
+                aplayerInstance.on('timeupdate', () => {
+                    if (!parsedLyrics.length || $('#show-lrc-meta').hasClass('active')) return;
+
+                    const currentTime = aplayerInstance.audio.currentTime * 1000;
+                    let activeIndex = -1;
+
+                    for (let i = 0; i < parsedLyrics.length; i++) {
+                        if (currentTime >= parsedLyrics[i][0]) {
+                            activeIndex = i;
+                        } else {
+                            break;
+                        }
+                    }
+
+                    if (activeIndex !== -1) {
+                        highlightLyric(activeIndex);
+                    }
+                });
             }
 
             function lrctrim(lyrics) {
@@ -842,6 +956,46 @@
                 return array;
             }
 
+            function highlightLyric(index) {
+                const $lines = $('.lyric-line');
+                const $activeLine = $lines.eq(index);
+
+                if ($activeLine.length && !$activeLine.hasClass('active')) {
+                    $lines.removeClass('active');
+                    $activeLine.addClass('active');
+
+                    const container = $('.lyric-scroll-area');
+                    const scrollTop = $activeLine[0].offsetTop - container.height() / 2 + $activeLine.height() / 2;
+                    container.scrollTop(scrollTop);
+                }
+            }
+
+            function renderLyrics() {
+                if (!currentLyricRaw) {
+                    $('#lyric').html('');
+                    return;
+                }
+
+                const isMetaMode = $('#show-lrc-meta').hasClass('active');
+                
+                if (isMetaMode) {
+                    // Display original metadata (LRC format)
+                    $('#lyric').css('text-align', 'left');
+                    $('#lyric').html(currentLyricRaw.replace(/\n/g, '<br>'));
+                    parsedLyrics = [];
+                } else {
+                    // Display synced lyrics
+                    $('#lyric').css('text-align', 'center');
+                    parsedLyrics = lrctrim(currentLyricRaw);
+                    let html = '';
+                    parsedLyrics.forEach((line, i) => {
+                        // line: [timestamp, originalIndex, text]
+                        html += `<div class="lyric-line" data-index="${i}">${line[2]}</div>`;
+                    });
+                    $('#lyric').html(html);
+                }
+            }
+
             async function playSongById(songId) {
                 initializePlayer();
 
@@ -857,6 +1011,8 @@
                         const processedLyrics = response.tlyric ? 
                             lrctran(response.lyric, response.tlyric) : response.lyric;
 
+                        currentLyricRaw = processedLyrics;
+
                         // 1. Update main page UI
                         $('#song_name').text(response.name);
                         $('#song_pic').attr('src', response.pic);
@@ -865,7 +1021,7 @@
                         $('#song_level').text(response.level);
                         $('#song_size').text(response.size);
                         $('#song_url').attr('href', response.url);
-                        $('#lyric').html(processedLyrics.replace(/\n/g, '<br>'));
+                        renderLyrics();
                         $('#song-info').removeClass('d-none');
                         
                         // 2. Prepare the new song object for APlayer
@@ -874,8 +1030,7 @@
                             artist: response.ar_name,
                             album: response.al_name,
                             url: response.url,
-                            cover: response.pic,
-                            lrc: processedLyrics
+                            cover: response.pic
                         };
 
                         // 3. Use APlayer's official API to replace the playlist
@@ -884,7 +1039,13 @@
 
                         // 4. Explicitly command the player to play
                         aplayerInstance.play();
-                        
+
+                         // 5. update aplayer style
+                        $('.aplayer').css({
+                            'background-color': 'var(--md-sys-color-surface-container) !important',
+                            'border': '1px solid var(--md-sys-color-outline-variant)'
+                        });
+                        $('.aplayer .aplayer-body').css('background-color', 'var(--md-sys-color-surface-container) !important');
                     } else {
                          alert('播放失败，请稍后重试');
                     }
@@ -893,6 +1054,44 @@
                     alert('播放失败，请稍后重试');
                 }
             }
+
+            $('#show-lrc-meta').on('click', function() {
+                $(this).addClass('active');
+                $('#show-lrc-text').removeClass('active');
+                renderLyrics();
+            });
+
+            $('#show-lrc-text').on('click', function() {
+                $(this).addClass('active');
+                $('#show-lrc-meta').removeClass('active');
+                renderLyrics();
+            });
+            
+            $('#toggle-lyric-settings').on('click', function() {
+                $('#lyric-settings-panel').slideToggle();
+            });
+
+            $('#lyric-color-picker').on('input', function() {
+                const color = $(this).val();
+                document.documentElement.style.setProperty('--lyric-active-color', color);
+            });
+
+            $('#lyric-glow-range').on('input', function() {
+                const blur = $(this).val();
+                document.documentElement.style.setProperty('--lyric-active-blur', blur + 'px');
+            });
+
+            // Click to seek
+            $('#lyric').on('click', '.lyric-line', function() {
+                if (aplayerInstance) {
+                    const index = $(this).data('index');
+                    if (parsedLyrics[index]) {
+                        const time = parsedLyrics[index][0] / 1000;
+                        aplayerInstance.seek(time);
+                        aplayerInstance.play();
+                    }
+                }
+            });
 
             $('input[name="apiType"]').on('change', function() {
                 const apiType = $('input[name="apiType"]:checked').val();
@@ -955,6 +1154,8 @@
                         const songs = apiType === 'playlist' ? data.songs : data.result.songs;
                         originalPlayList = songs;
                         playList = [...originalPlayList];
+                        isSequentialPlay = true;
+                        isRandomPlay = false;
                         
                         let resultTitle = apiType === 'playlist' ? '歌单列表' : '搜索结果';
                         
@@ -964,7 +1165,7 @@
                                     <div class="d-flex align-items-center">
                                         <h1 class="mb-0 me-3">${resultTitle} (${songs.length} 首歌曲)</h1>
                                         <div class="btn-group">
-                                            <button class="btn btn-sm btn-outline-primary" id="sequential-play">顺序播放</button>
+                                            <button class="btn btn-sm btn-outline-primary active" id="sequential-play">顺序播放</button>
                                             <button class="btn btn-sm btn-outline-primary" id="random-play">随机播放</button>
                                             <button class="btn btn-sm btn-outline-success" id="batch-parse">批量解析</button>
                                         </div>
@@ -1390,5 +1591,9 @@
             }
 });
 </script>
+
+
+
+
 </body>
 </html>
