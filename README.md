@@ -27,5 +27,5 @@
 * 直接访问web页面即可！
 
 ## 致谢
-* 感谢[看戏仔](https://kxzjoker.cn/)的网易云解析api
+* 感谢[BugPK](https://api.bugpk.com/)的网易云解析api
 * 以及[樱花API](https://dmoe.cc/)的图片API！
