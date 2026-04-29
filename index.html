@@ -1,460 +1,314 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-theme="dark">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="icon.ico" />
     <title>网易云无损解析</title>
-
     <link href="css/bootstrap.min.css" rel="stylesheet" />
     <link href="css/APlayer.min.css" rel="stylesheet" />
-
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
 
         :root {
-            --md-sys-color-primary: #005ac1;
-            --md-sys-color-on-primary: #ffffff;
-            --md-sys-color-primary-container: #d8e2ff;
-            --md-sys-color-on-primary-container: #001a41;
-            --md-sys-color-secondary: #575e71;
-            --md-sys-color-on-secondary: #ffffff;
-            --md-sys-color-secondary-container: #dbe2f9;
-            --md-sys-color-on-secondary-container: #141b2c;
-            --md-sys-color-tertiary: #715573;
-            --md-sys-color-on-tertiary: #ffffff;
-            --md-sys-color-tertiary-container: #fbd7fc;
-            --md-sys-color-on-tertiary-container: #29132d;
-            --md-sys-color-error: #ba1a1a;
-            --md-sys-color-on-error: #ffffff;
-            --md-sys-color-background: #fefbff;
-            --md-sys-color-on-background: #1b1b1f;
-            --md-sys-color-surface: #fefbff;
-            --md-sys-color-on-surface: #1b1b1f;
-            --md-sys-color-surface-variant: #e1e2ec;
-            --md-sys-color-on-surface-variant: #44474f;
-            --md-sys-color-outline: #74777f;
-            --md-sys-color-outline-variant: #c4c6d0;
-
-            --md-sys-color-surface-container-low: #f7f2fa;
-            --md-sys-color-surface-container: #f3edf7;
-            --md-sys-color-surface-container-high: #ece6f0;
-
-            --md-sys-shape-corner-extra-large: 28px;
-            --md-sys-shape-corner-large: 16px;
-            --md-sys-shape-corner-medium: 12px;
-            --md-sys-shape-corner-small: 4px;
-            --md-sys-shape-corner-full: 9999px;
-
-            --md-sys-elevation-1: 0px 1px 3px 1px rgba(0, 0, 0, 0.15), 0px 1px 2px 0px rgba(0, 0, 0, 0.3);
-            --md-sys-elevation-2: 0px 2px 6px 2px rgba(0, 0, 0, 0.15), 0px 1px 2px 0px rgba(0, 0, 0, 0.3);
-            --md-sys-elevation-3: 0px 1px 3px 0px rgba(0, 0, 0, 0.3), 0px 4px 8px 3px rgba(0, 0, 0, 0.15);
-
-            --lyric-active-color: var(--md-sys-color-primary);
+            --accent-dark: #ffffff;
+            --accent-soft-dark: rgba(255,255,255,.12);
+            --accent-glow-dark: rgba(255,255,255,.25);
+            --accent-container-dark: rgba(255,255,255,.15);
+            --accent-container-text-dark: #ffffff;
+            --accent-light: #888888;
+            --accent-soft-light: rgba(100,100,100,.08);
+            --accent-glow-light: rgba(100,100,100,.18);
+            --accent-container-light: rgba(100,100,100,.1);
+            --accent-container-text-light: #444444;
+            --accent: var(--accent-dark);
+            --accent-soft: var(--accent-soft-dark);
+            --accent-glow: var(--accent-glow-dark);
+            --accent-container: var(--accent-container-dark);
+            --accent-container-text: var(--accent-container-text-dark);
+            --surface: rgba(18,18,24,.82);
+            --surface-card: rgba(28,28,38,.72);
+            --surface-high: rgba(38,38,50,.65);
+            --surface-highest: rgba(48,48,62,.6);
+            --surface-overlay: rgba(10,10,16,.78);
+            --on-surface: #eaeaea;
+            --on-surface-dim: rgba(234,234,234,.6);
+            --on-surface-faint: rgba(234,234,234,.35);
+            --outline: rgba(255,255,255,.12);
+            --outline-strong: rgba(255,255,255,.2);
+            --shape-xl: 24px; --shape-lg: 16px; --shape-md: 12px;
+            --shape-sm: 8px; --shape-full: 9999px;
+            --shadow-1: 0 1px 3px rgba(0,0,0,.4), 0 1px 2px rgba(0,0,0,.6);
+            --shadow-2: 0 4px 12px rgba(0,0,0,.35);
+            --shadow-3: 0 8px 24px rgba(0,0,0,.4);
+            --lyric-active-color: var(--accent);
             --lyric-active-blur: 0px;
         }
 
-        @font-face {
-            font-family: 'PingFang-SC';
-            src: url('../fonts/PingFang.ttf') format('truetype');
+        [data-theme="light"] {
+            --accent: var(--accent-light);
+            --accent-soft: var(--accent-soft-light);
+            --accent-glow: var(--accent-glow-light);
+            --accent-container: var(--accent-container-light);
+            --accent-container-text: var(--accent-container-text-light);
+            --surface: rgba(255,255,255,.88);
+            --surface-card: rgba(255,255,255,.82);
+            --surface-high: rgba(245,245,250,.78);
+            --surface-highest: rgba(235,235,242,.72);
+            --surface-overlay: rgba(255,255,255,.75);
+            --on-surface: #1c1b1f;
+            --on-surface-dim: rgba(28,27,31,.6);
+            --on-surface-faint: rgba(28,27,31,.35);
+            --outline: rgba(0,0,0,.08);
+            --outline-strong: rgba(0,0,0,.14);
+            --shadow-1: 0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.12);
+            --shadow-2: 0 4px 12px rgba(0,0,0,.1);
+            --shadow-3: 0 8px 24px rgba(0,0,0,.12);
         }
 
+        body, body::before,
+        .top-bar, .card, .inp, .sel, .btn-m,
+        .song-row, .meta-box, .lyric-box, .lyric-settings,
+        .log-area, .parse-row, .hero h1, .hero p,
+        .card-label, .card-title, .card-sub,
+        .field-label, .seg-btn, .song-row-info .nm,
+        .song-row-info .ar, .meta-tag, .meta-val,
+        .lyric-line, .lyric-toolbar-l h5, .aplayer,
+        .aplayer-body, .aplayer-list {
+            transition:
+                background-color .5s cubic-bezier(.4,0,.2,1),
+                color .5s cubic-bezier(.4,0,.2,1),
+                border-color .5s cubic-bezier(.4,0,.2,1),
+                box-shadow .5s cubic-bezier(.4,0,.2,1);
+        }
+
+        * { box-sizing: border-box; margin: 0; }
         body {
-            font-family: 'Roboto', 'PingFang-SC', system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
-            background: var(--md-sys-color-background) center/cover fixed no-repeat;
-            min-height: 100vh;
-            color: var(--md-sys-color-on-background);
-            margin: 0;
+            font-family: 'Noto Sans SC', system-ui, -apple-system, sans-serif;
+            background: #0a0a10 center/cover fixed no-repeat;
+            min-height: 100vh; color: var(--on-surface);
+            -webkit-font-smoothing: antialiased;
         }
-
         body::before {
-            content: "";
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: var(--md-sys-color-surface);
-            opacity: 0.85;
-            z-index: -1;
-        }
-
-        .container {
-            max-width: 840px;
-            padding: 80px 16px 24px 16px;
-            position: relative;
-            z-index: 1;
+            content: ""; position: fixed; inset: 0;
+            background: var(--surface-overlay); z-index: 0;
         }
 
         .top-bar {
-            background-color: var(--md-sys-color-surface);
-            color: var(--md-sys-color-on-surface);
-            height: 64px;
-            padding: 0 16px;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 1000;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: none;
+            position: fixed; top: 0; left: 0; right: 0; height: 56px;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 20px; background: var(--surface);
+            backdrop-filter: blur(24px) saturate(1.6);
+            -webkit-backdrop-filter: blur(24px) saturate(1.6);
+            z-index: 1000; border-bottom: 1px solid var(--outline);
+        }
+        .top-bar .title { font-size: 16px; font-weight: 500; color: var(--on-surface); letter-spacing: .3px; }
+        .top-bar-actions { display: flex; align-items: center; gap: 2px; }
+        .icon-btn {
+            width: 36px; height: 36px; border-radius: var(--shape-full);
+            border: none; background: transparent; color: var(--on-surface-dim);
+            font-size: 16px; cursor: pointer;
+            display: inline-flex; align-items: center; justify-content: center;
+            text-decoration: none; position: relative; overflow: hidden;
+        }
+        .icon-btn:hover { background: var(--accent-soft); color: var(--on-surface); }
+        .icon-btn.spin { animation: themeSpin .5s cubic-bezier(.4,0,.2,1); }
+        @keyframes themeSpin {
+            0%   { transform: scale(1) rotate(0deg); }
+            50%  { transform: scale(.7) rotate(180deg); }
+            100% { transform: scale(1) rotate(360deg); }
         }
 
-        .top-bar span {
-            font-weight: 400;
-            font-size: 22px;
-            line-height: 28px;
-            font-family: 'Roboto', sans-serif;
-            margin-left: 12px;
-        }
+        .main-wrap { position: relative; z-index: 1; max-width: 680px; margin: 0 auto; padding: 80px 16px 120px; }
+        .hero { text-align: center; padding: 40px 0 28px; }
+        .hero h1 { font-size: 32px; font-weight: 300; color: var(--on-surface); letter-spacing: 1px; }
+        .hero p { font-size: 13px; color: var(--on-surface-faint); margin-top: 6px; letter-spacing: .5px; }
 
-        .top-bar a {
-            text-decoration: none;
-            padding: 10px 16px;
-            border-radius: var(--md-sys-shape-corner-full);
-            background-color: transparent;
-            color: var(--md-sys-color-primary);
-            font-weight: 500;
-            font-size: 0.875rem;
-            transition: all 0.2s ease;
+        .card {
+            background: var(--surface-card); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+            border-radius: var(--shape-xl); padding: 24px; margin-bottom: 14px; border: 1px solid var(--outline);
         }
+        .card-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 1.2px; color: var(--on-surface-faint); margin-bottom: 16px; }
+        .card-title { font-size: 17px; font-weight: 500; color: var(--on-surface); margin-bottom: 4px; }
+        .card-sub { font-size: 12px; color: var(--on-surface-faint); margin-bottom: 18px; }
 
-        .top-bar a:hover {
-            background-color: var(--md-sys-color-primary-container);
-            color: var(--md-sys-color-on-primary-container);
-        }
+        .seg-group { display: inline-flex; width: 100%; border-radius: var(--shape-full); border: 1px solid var(--outline-strong); overflow: hidden; margin-bottom: 18px; }
+        .seg-btn { flex: 1; padding: 10px 0; border: none; background: transparent; color: var(--on-surface-dim); font-size: 13px; font-weight: 500; font-family: inherit; cursor: pointer; letter-spacing: .3px; }
+        .seg-btn + .seg-btn { border-left: 1px solid var(--outline); }
+        .seg-btn.on { background: var(--accent-container); color: var(--accent-container-text); }
+        .seg-btn:hover:not(.on) { background: rgba(255,255,255,.04); }
 
-        .header, .card-form, .result-card, .list .header {
-            background: var(--md-sys-color-surface-container-low);
-            border-radius: var(--md-sys-shape-corner-large);
-            padding: 24px;
-            margin-bottom: 16px;
-            box-shadow: var(--md-sys-elevation-1);
-            border: none;
+        .field { margin-bottom: 16px; }
+        .field-label { display: block; font-size: 11px; font-weight: 500; color: var(--on-surface-faint); margin-bottom: 6px; padding-left: 2px; letter-spacing: .5px; }
+        .inp {
+            width: 100%; height: 48px; padding: 0 14px;
+            border: 1px solid var(--outline-strong); border-radius: var(--shape-sm);
+            background: rgba(255,255,255,.04); color: var(--on-surface);
+            font-size: 14px; font-family: inherit; outline: none;
         }
+        .inp::placeholder { color: var(--on-surface-faint); }
+        .inp:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-glow); }
+        .sel {
+            width: 100%; height: 48px; padding: 0 36px 0 14px;
+            border: 1px solid var(--outline-strong); border-radius: var(--shape-sm);
+            background: rgba(255,255,255,.04); color: var(--on-surface);
+            font-size: 14px; font-family: inherit; cursor: pointer; outline: none;
+            appearance: none; -webkit-appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' fill='none' stroke='%23888' stroke-width='2'%3E%3Cpath d='M3 5l4 4 4-4'/%3E%3C/svg%3E");
+            background-repeat: no-repeat; background-position: right 12px center;
+        }
+        .sel:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-glow); }
+        .sel option { background: #1c1c26; color: #eaeaea; }
+        [data-theme="light"] .sel option { background: #fff; color: #1c1b1f; }
 
-        .header {
-            text-align: center;
-            background: transparent;
-            box-shadow: none;
-            padding: 48px 0 24px 0;
+        .btn-m {
+            display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+            height: 42px; padding: 0 22px; border: none; border-radius: var(--shape-full);
+            font-size: 13px; font-weight: 500; font-family: inherit; cursor: pointer; letter-spacing: .2px;
         }
+        .btn-filled { background: var(--accent); color: #0a0a10; box-shadow: var(--shadow-1); }
+        .btn-filled:hover { box-shadow: var(--shadow-2); filter: brightness(1.1); }
+        [data-theme="light"] .btn-filled { color: #fff; }
+        .btn-tonal { background: var(--accent-container); color: var(--accent-container-text); }
+        .btn-ghost { background: transparent; color: var(--accent); border: 1px solid var(--outline-strong); }
+        .btn-ghost:hover { background: var(--accent-soft); }
+        .btn-text { background: transparent; color: var(--accent); padding: 0 10px; }
+        .btn-sm { height: 32px; padding: 0 14px; font-size: 12px; }
+        .btn-block { width: 100%; }
 
-        .header h1 {
-            color: var(--md-sys-color-on-surface);
-            font-weight: 400;
-            font-size: 36px;
-            line-height: 44px;
-            margin-bottom: 0;
+        .result-card { display: none; }
+        .result-card.show { display: block; }
+        .cover-wrap { display: flex; justify-content: center; margin: 8px 0 20px; }
+        .cover-wrap img {
+            width: 220px; height: 220px; border-radius: var(--shape-lg); object-fit: cover;
+            box-shadow: var(--shadow-3); transition: transform .35s cubic-bezier(.2,0,0,1); cursor: pointer;
         }
-
-        .text-muted {
-            color: var(--md-sys-color-on-surface-variant) !important;
-        }
-
-        .form-label {
-            color: var(--md-sys-color-on-surface);
-            font-weight: 400;
-            font-size: 12px;
-            letter-spacing: 0.4px;
-            margin-bottom: 4px;
-            margin-left: 4px;
-        }
-
-        .form-control, .form-select {
-            border: 1px solid var(--md-sys-color-outline);
-            border-radius: var(--md-sys-shape-corner-small);
-            padding: 16px;
-            height: 56px;
-            background-color: transparent;
-            color: var(--md-sys-color-on-surface);
-            transition: all 0.2s ease;
-            font-size: 16px;
-        }
-
-        .form-control:focus, .form-select:focus {
-            border-color: var(--md-sys-color-primary);
-            box-shadow: 0 0 0 2px var(--md-sys-color-primary-container);
-            background-color: transparent;
-            color: var(--md-sys-color-on-surface);
-        }
-
-        .btn {
-            border-radius: var(--md-sys-shape-corner-full);
-            height: 40px;
-            padding: 0 24px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 500;
-            font-size: 14px;
-            letter-spacing: 0.1px;
-            transition: all 0.2s ease;
-            text-transform: none;
-        }
-
-        .btn-primary {
-            background-color: var(--md-sys-color-primary);
-            border: none;
-            color: var(--md-sys-color-on-primary);
-            box-shadow: var(--md-sys-elevation-1);
-        }
-
-        .btn-primary:hover {
-            background-color: var(--md-sys-color-primary);
-            box-shadow: var(--md-sys-elevation-2);
-            filter: brightness(0.9);
-        }
-
-        .btn-outline-primary {
-            color: var(--md-sys-color-primary);
-            border-color: var(--md-sys-color-outline);
-        }
-
-        .btn-outline-primary:hover, .btn-outline-primary.active {
-            background-color: var(--md-sys-color-primary-container);
-            color: var(--md-sys-color-on-primary-container);
-            border-color: transparent;
-        }
-
-        .btn-outline-success {
-            color: var(--md-sys-color-tertiary);
-            border-color: var(--md-sys-color-outline);
-        }
-
-        .btn-outline-success:hover {
-            background-color: var(--md-sys-color-tertiary-container);
-            color: var(--md-sys-color-on-tertiary-container);
-            border-color: transparent;
-        }
-
-        .form-check-input:checked {
-            background-color: var(--md-sys-color-primary);
-            border-color: var(--md-sys-color-primary);
-        }
-
-        .form-check-label {
-            color: var(--md-sys-color-on-surface);
-        }
-
-        .song-info img {
-            width: 100%;
-            max-width: 300px;
-            border-radius: var(--md-sys-shape-corner-medium);
-            margin: 1rem 0;
-            box-shadow: var(--md-sys-elevation-1);
-            cursor: pointer;
-            transition: transform 0.3s cubic-bezier(0.2, 0.0, 0, 1.0);
-        }
-
-        .song-info img:hover {
-            transform: scale(1.02);
-            box-shadow: var(--md-sys-elevation-2);
-        }
-
-        .aplayer {
-            border-radius: var(--md-sys-shape-corner-medium) !important;
-            box-shadow: none !important;
-            border: 1px solid var(--md-sys-color-outline-variant);
-            background: var(--md-sys-color-surface-container) !important;
-            margin: 1.5rem 0;
-        }
-
-        .aplayer .aplayer-body,
-        .aplayer .aplayer-list {
-            background-color: var(--md-sys-color-surface-container) !important;
-        }
+        .cover-wrap img:hover { transform: scale(1.03); }
+        .song-title { font-size: 22px; font-weight: 500; text-align: center; color: var(--on-surface); margin-bottom: 4px; }
+        .song-artist { font-size: 13px; color: var(--on-surface-dim); text-align: center; margin-bottom: 20px; }
+        .meta-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+        .meta-box { background: var(--surface-high); border-radius: var(--shape-md); padding: 12px 14px; border: 1px solid var(--outline); }
+        .meta-tag { font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: .8px; color: var(--on-surface-faint); margin-bottom: 3px; }
+        .meta-val { font-size: 13px; color: var(--on-surface); word-break: break-all; }
+        .meta-val a { color: var(--accent); text-decoration: none; font-weight: 500; }
+        .meta-val a:hover { text-decoration: underline; }
 
         .lyric-box {
-            max-height: 300px;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            padding: 16px;
-            background: var(--md-sys-color-surface-container-high);
-            border-radius: var(--md-sys-shape-corner-medium);
-            color: var(--md-sys-color-on-surface-variant);
-            margin: 1rem 0;
-            border: none;
-            position: relative;
-            text-align: center;
-            isolation: isolate;
-            transition: background 0.3s;
+            max-height: 320px; overflow: hidden; display: flex; flex-direction: column;
+            padding: 18px; background: var(--surface-high); border-radius: var(--shape-lg);
+            margin-top: 18px; position: relative; isolation: isolate; border: 1px solid var(--outline);
         }
+        .lyric-scroll-area { overflow-y: auto; flex: 1; scroll-behavior: smooth; }
+        .lyric-line { padding: 6px 0; opacity: .35; cursor: pointer; font-size: 14px; line-height: 1.9; color: var(--on-surface); }
+        .lyric-line.active { opacity: 1; font-size: 18px; font-weight: 700; color: var(--lyric-active-color) !important; text-shadow: 0 0 var(--lyric-active-blur) var(--lyric-active-color); }
+        .lyric-translation { font-size: .76em; opacity: .75; margin-top: 2px; }
+        .lyric-toolbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; flex-wrap: wrap; gap: 8px; }
+        .lyric-toolbar-l { display: flex; align-items: center; gap: 8px; }
+        .lyric-toolbar-l h5 { margin: 0; font-size: 13px; font-weight: 500; color: var(--on-surface-dim); }
+        .toggle-grp { display: inline-flex; gap: 3px; }
+        .toggle-grp .btn-sm { border-radius: var(--shape-full) !important; border: 1px solid var(--outline-strong) !important; background: transparent !important; color: var(--on-surface-dim) !important; }
+        .toggle-grp .btn-sm.on { background: var(--accent-container) !important; color: var(--accent-container-text) !important; border-color: transparent !important; }
+        .lyric-settings { background: var(--surface-card); padding: 12px; border-radius: var(--shape-md); margin-bottom: 10px; display: none; border: 1px solid var(--outline); }
+        .lyric-settings label { font-size: 11px; color: var(--on-surface-faint); margin: 0; font-weight: 500; }
+        .lyric-bg { position: absolute; inset: 0; background-size: cover; background-position: center; filter: blur(50px) brightness(.45); z-index: -1; opacity: 0; transition: opacity .5s; transform: scale(1.2); }
+        .lyric-bg.active { opacity: 1; animation: bgBreath 10s ease-in-out infinite alternate; }
+        @keyframes bgBreath { 0%{transform:scale(1.2)} 100%{transform:scale(1.3)} }
+        .lyric-box.fluid-on .lyric-line { color: rgba(255,255,255,.65); }
+        .lyric-box.fluid-on .lyric-line.active { color: var(--lyric-active-color) !important; }
 
-        .lyric-scroll-area {
-            overflow-y: auto;
-            flex: 1;
-            position: relative;
-            scroll-behavior: smooth;
-            width: 100%;
-        }
+        .pl-section { display: none; }
+        .pl-section.show { display: block; }
+        .pl-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; flex-wrap: wrap; gap: 10px; }
+        .pl-header h2 { font-size: 16px; font-weight: 500; color: var(--on-surface); }
+        .pl-actions { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+        .select-all-row { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+        .select-all-row label { font-size: 12px; color: var(--on-surface-faint); cursor: pointer; }
+        .chk { width: 16px; height: 16px; accent-color: var(--accent); cursor: pointer; }
+        .pl-scroll { max-height: 55vh; overflow-y: auto; padding-right: 4px; }
+        .song-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 8px 12px; border-radius: var(--shape-md); background: var(--surface-high); margin-bottom: 4px; }
+        .song-row:hover { background: var(--surface-highest); }
+        .song-row-l { display: flex; align-items: center; gap: 10px; min-width: 0; flex: 1; }
+        .song-row-l img { width: 40px; height: 40px; border-radius: var(--shape-sm); object-fit: cover; flex-shrink: 0; }
+        .song-row-info { min-width: 0; }
+        .song-row-info .nm { font-size: 13px; font-weight: 500; color: var(--on-surface); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .song-row-info .ar { font-size: 11px; color: var(--on-surface-dim); }
+        .parse-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 8px 12px; border-radius: var(--shape-md); background: var(--surface-high); margin-bottom: 4px; }
+        .parse-row .ml { font-size: 10px; color: var(--on-surface-faint); margin-top: 1px; }
+        .prog-track { height: 3px; background: var(--surface-highest); border-radius: 2px; overflow: hidden; margin-bottom: 10px; }
+        .prog-bar { height: 100%; background: var(--accent); border-radius: 2px; transition: width .3s; width: 0%; }
+        .log-area { max-height: 120px; overflow-y: auto; font-size: 11px; padding: 8px; background: rgba(0,0,0,.15); border-radius: var(--shape-sm); margin-top: 8px; }
+        .log-ok { color: #34a853; }
+        .log-fail { color: #ea4335; }
+        .log-wait { color: var(--on-surface-faint); }
+        [data-theme="light"] .log-area { background: rgba(0,0,0,.04); }
+        [data-theme="light"] .log-ok { color: #1e8e3e; }
+        [data-theme="light"] .log-fail { color: #d93025; }
 
-        .lyric-line {
-            padding: 8px 0;
-            transition: all 0.3s ease;
-            opacity: 0.5;
-            cursor: pointer;
-            font-size: 16px;
-            line-height: 1.8;
-        }
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: var(--outline-strong); border-radius: 3px; }
 
-        .lyric-line.active {
-            opacity: 1;
-            font-size: 20px;
-            font-weight: bold;
-            color: var(--lyric-active-color) !important;
-            text-shadow: 0 0 var(--lyric-active-blur) var(--lyric-active-color);
-        }
+        .aplayer { border-radius: var(--shape-md) !important; box-shadow: none !important; border: 1px solid var(--outline) !important; background: var(--surface-card) !important; margin: 16px 0 0 !important; }
+        .aplayer .aplayer-body, .aplayer .aplayer-list { background: var(--surface-card) !important; }
 
-        .lyric-translation {
-            font-size: 0.8em;
-            transform: scale(1.05);
-        }
+        .clr { width: 32px; height: 24px; padding: 1px; border: 1px solid var(--outline-strong); border-radius: 4px; background: transparent; cursor: pointer; }
+        .rng { accent-color: var(--accent); height: 3px; }
+        .sw-chk { width: 32px; height: 18px; accent-color: var(--accent); }
 
-        .lyric-settings {
-            background: var(--md-sys-color-surface-container-low);
-            padding: 10px;
-            border-radius: 8px;
-            margin-bottom: 10px;
-            display: none;
-        }
-
-        .lyric-background {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-size: cover;
-            background-position: center;
-            filter: blur(50px) brightness(0.6);
-            z-index: -1;
-            opacity: 0;
-            transition: opacity 0.5s ease;
-            transform: scale(1.2);
-        }
-
-        .lyric-background.active {
-            opacity: 1;
-            animation: bg-breathe 10s ease-in-out infinite alternate;
-        }
-
-        @keyframes bg-breathe {
-            0% { transform: scale(1.2); }
-            100% { transform: scale(1.3); }
-        }
-
-        .lyric-box.fluid-active h5,
-        .lyric-box.fluid-active .lyric-line {
-            color: rgba(255, 255, 255, 0.8);
-        }
-
-        .lyric-box.fluid-active .lyric-line.active {
-            color: var(--lyric-active-color);
-            text-shadow: 0 0 var(--lyric-active-blur) var(--lyric-active-color);
-        }
-
-        .playlist-container {
-            max-height: 60vh;
-            overflow-y: auto;
-            overflow-x: hidden;
-            margin-top: 1rem;
-            padding-right: 10px;
-        }
-
-        ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: transparent;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: var(--md-sys-color-outline-variant);
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--md-sys-color-outline);
-        }
-
-        .song-item {
-            background-color: var(--md-sys-color-surface-container) !important;
-            border: none !important;
-            border-radius: var(--md-sys-shape-corner-small) !important;
-            margin-bottom: 8px !important;
-            padding: 8px 16px !important;
-            transition: background-color 0.2s;
-            color: var(--md-sys-color-on-surface);
-        }
-
-        .song-item:hover {
-            background-color: var(--md-sys-color-surface-container-high) !important;
-        }
-
-        .song-item strong {
-            font-weight: 500;
-            font-size: 16px;
-        }
-
-        .song-item small {
-            color: var(--md-sys-color-on-surface-variant) !important;
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                padding: 72px 16px 16px 16px;
-            }
-
-            .header h1 {
-                font-size: 28px;
-            }
+        @media (max-width: 600px) {
+            .main-wrap { padding: 72px 10px 120px; }
+            .hero h1 { font-size: 26px; }
+            .card { padding: 18px; border-radius: var(--shape-lg); }
+            .cover-wrap img { width: 180px; height: 180px; }
+            .meta-grid { grid-template-columns: 1fr; }
+            .seg-group { width: 100%; }
+            .pl-header { flex-direction: column; align-items: flex-start; }
         }
     </style>
 </head>
 <body>
+
     <div class="top-bar">
-        <span>Manhole-Cover</span>
-        <a href="#" id="dl-bg">DLBG</a>
+        <span class="title">Manhole-Cover</span>
+        <div class="top-bar-actions">
+            <button id="theme-toggle" class="icon-btn" title="切换明暗">☀</button>
+            <a href="#" id="dl-bg" class="icon-btn" title="下载背景">BG</a>
+        </div>
     </div>
 
-    <div class="container">
-        <div class="header">
+    <div class="main-wrap">
+        <div class="hero">
             <h1>网易云解析</h1>
-            <p class="text-muted">听我想听</p>
+            <p>听我想听</p>
         </div>
 
-        <div class="list">
-            <div class="header">
-                <h1>网易云聚合搜索</h1>
-                <div class="api-switch mb-3">
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="apiType" id="playlistApi" value="playlist" checked />
-                        <label class="form-check-label" for="playlistApi">歌单</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="apiType" id="searchApi" value="search" />
-                        <label class="form-check-label" for="searchApi">搜索</label>
-                    </div>
-                </div>
-                <input type="text" id="input_field" class="form-control" placeholder="请输入歌单ID" />
-                <div class="d-grid">
-                    <button type="button" class="btn btn-primary" id="get-playlist-btn" style="padding: 0.2rem 0.1rem;">
-                        GET
-                    </button>
-                </div>
+        <div class="card">
+            <div class="card-label">聚合搜索</div>
+            <div class="seg-group">
+                <button class="seg-btn on" data-type="playlist">歌单</button>
+                <button class="seg-btn" data-type="search">搜索</button>
             </div>
-            <div id="playlist-info"></div>
+            <div class="field">
+                <label class="field-label" id="input-label">歌单 ID 或链接</label>
+                <input type="text" id="input_field" class="inp" placeholder="粘贴歌单ID或完整链接" />
+            </div>
+            <button class="btn-m btn-filled btn-block" id="get-playlist-btn">搜索</button>
         </div>
 
-        <div class="card-form">
+        <div class="pl-section" id="playlist-section">
+            <div class="card" id="playlist-card"></div>
+        </div>
+
+        <div class="card">
+            <div class="card-label">单曲解析</div>
             <form id="query-form">
-                <div class="mb-4">
-                    <label for="song_ids" class="form-label fw-bold">歌曲ID或URL</label>
-                    <input type="text" id="song_ids" class="form-control" placeholder="请输入分享链接或歌曲ID" />
+                <div class="field">
+                    <label class="field-label" for="song_ids">歌曲 ID / URL</label>
+                    <input type="text" id="song_ids" class="inp" placeholder="分享链接或歌曲ID" />
                 </div>
-                <div class="mb-4">
-                    <label for="level" class="form-label fw-bold">音质选择</label>
-                    <select id="level" class="form-select">
+                <div class="field">
+                    <label class="field-label" for="level">音质</label>
+                    <select id="level" class="sel">
                         <option value="standard">128K</option>
                         <option value="exhigh">320K</option>
                         <option value="lossless">SQ</option>
@@ -464,66 +318,47 @@
                         <option value="jymaster">超清母带</option>
                     </select>
                 </div>
-                <div class="d-grid">
-                    <button type="submit" class="btn btn-primary btn-lg">立即解析</button>
-                </div>
+                <button type="submit" class="btn-m btn-filled btn-block">立即解析</button>
             </form>
         </div>
 
-        <div id="song-info" class="result-card d-none">
-            <div id="aplayer"></div>
-            <div class="song-info text-center">
-                <img id="song_pic" src="" alt="专辑封面" class="img-fluid" />
-                <h3 class="mt-3" id="song_name"></h3>
-                <p class="text-muted" id="artist_names"></p>
-            </div>
-
-            <div class="row mt-4">
-                <div class="col-md-6">
-                    <p><strong>专辑：</strong><span id="song_alname"></span></p>
-                    <p><strong>音质：</strong><span id="song_level"></span></p>
+        <div class="result-card" id="song-info">
+            <div class="card">
+                <div id="aplayer"></div>
+                <div class="cover-wrap"><img id="song_pic" src="" alt="专辑封面" /></div>
+                <h3 class="song-title" id="song_name"></h3>
+                <p class="song-artist" id="artist_names"></p>
+                <div class="meta-grid">
+                    <div class="meta-box"><div class="meta-tag">专辑</div><div class="meta-val" id="song_alname"></div></div>
+                    <div class="meta-box"><div class="meta-tag">音质</div><div class="meta-val" id="song_level"></div></div>
+                    <div class="meta-box"><div class="meta-tag">大小</div><div class="meta-val" id="song_size"></div></div>
+                    <div class="meta-box"><div class="meta-tag">下载</div><div class="meta-val"><a id="song_url" href="" target="_blank">立即下载</a></div></div>
                 </div>
-                <div class="col-md-6">
-                    <p><strong>大小：</strong><span id="song_size"></span></p>
-                    <p><strong>下载：</strong><a id="song_url" href="" target="_blank" class="text-decoration-none">立即下载</a></p>
-                </div>
-            </div>
-
-            <div class="lyric-box">
-                <div id="lyric-bg" class="lyric-background"></div>
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <div class="d-flex align-items-center">
-                        <h5 class="mb-0 me-2">歌词</h5>
-                        <button class="btn btn-sm btn-outline-secondary" id="toggle-lyric-settings" style="padding: 2px 6px; font-size: 12px;">
-                            设置
-                        </button>
-                    </div>
-                    <div class="btn-group btn-group-sm">
-                        <button class="btn btn-outline-primary active" id="show-lrc-meta">元数据</button>
-                        <button class="btn btn-outline-primary" id="show-lrc-text">纯文本</button>
-                        <button class="btn btn-outline-primary" id="open-pip">画中画</button>
-                    </div>
-                </div>
-                <div class="lyric-settings" id="lyric-settings-panel">
-                    <div class="row g-2 align-items-center">
-                        <div class="col-auto"><label class="form-label mb-0 small">高亮颜色</label></div>
-                        <div class="col-auto">
-                            <input type="color" class="form-control form-control-color form-control-sm" id="lyric-color-picker" value="#005ac1" title="选择颜色" />
+                <div class="lyric-box">
+                    <div id="lyric-bg" class="lyric-bg"></div>
+                    <div class="lyric-toolbar">
+                        <div class="lyric-toolbar-l">
+                            <h5>歌词</h5>
+                            <button class="btn-m btn-sm btn-text" id="toggle-lyric-settings" style="font-size:11px;height:26px;padding:0 8px;">⚙</button>
                         </div>
-                        <div class="col-auto ms-3"><label class="form-label mb-0 small">光晕强度</label></div>
-                        <div class="col">
-                            <input type="range" class="form-range" id="lyric-glow-range" min="0" max="20" step="1" value="0" />
-                        </div>
-                        <div class="col-auto ms-3">
-                            <div class="form-check form-switch mb-0">
-                                <input class="form-check-input" type="checkbox" id="toggle-fluid-cover" />
-                                <label class="form-check-label small" for="toggle-fluid-cover">封面</label>
-                            </div>
+                        <div class="toggle-grp">
+                            <button class="btn-m btn-sm on" id="show-lrc-meta">元数据</button>
+                            <button class="btn-m btn-sm" id="show-lrc-text">纯文本</button>
+                            <button class="btn-m btn-sm" id="open-pip">画中画</button>
                         </div>
                     </div>
-                </div>
-                <div class="lyric-scroll-area">
-                    <div id="lyric" class="text-secondary" style="white-space: pre-wrap;"></div>
+                    <div class="lyric-settings" id="lyric-settings-panel">
+                        <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+                            <label>高亮色</label>
+                            <input type="color" class="clr" id="lyric-color-picker" value="#ffffff" />
+                            <label style="margin-left:8px;">光晕</label>
+                            <input type="range" class="rng" id="lyric-glow-range" min="0" max="20" step="1" value="0" style="flex:1;min-width:80px;" />
+                            <label style="margin-left:8px;display:flex;align-items:center;gap:6px;">
+                                <input class="sw-chk" type="checkbox" id="toggle-fluid-cover" /> 封面
+                            </label>
+                        </div>
+                    </div>
+                    <div class="lyric-scroll-area"><div id="lyric" style="white-space:pre-wrap;"></div></div>
                 </div>
             </div>
         </div>
@@ -534,1102 +369,1057 @@
     <script src="js/browser-id3-writer.min.js"></script>
 
     <script>
-        $(document).ready(function () {
-            let currentSongIndex = -1;
-            let playList = [];
-            let originalPlayList = [];
-            let isSequentialPlay = false;
-            let isRandomPlay = false;
-            let aplayerInstance = null;
-            let currentLyricRaw = '';
-            let parsedLyrics = [];
-            let pipWindow = null;
+    $(document).ready(function () {
+        let currentSongIndex = -1;
+        let playList = [];
+        let originalPlayList = [];
+        let isSequentialPlay = false;
+        let isRandomPlay = false;
+        let aplayerInstance = null;
+        let currentLyricRaw = '';
+        let parsedLyrics = [];
+        let pipWindow = null;
 
-            // 解析接口
-            const MUSIC_API_BASE = 'https://api.bugpk.com/api/163_music';
+        const MUSIC_API_BASE = 'https://api.bugpk.com/api/163_music';
 
-            function extractSongIdFromInput(input) {
-                const val = String(input || '').trim();
-                if (!val) return '';
+        /* ═══════ 莫奈取色（仅背景图） ═══════ */
+        function extractMonetColors(imageUrl, callback) {
+            const img = new Image();
+            img.crossOrigin = 'anonymous';
+            img.onload = function () {
+                const c = document.createElement('canvas'), S = 64;
+                c.width = S; c.height = S;
+                const ctx = c.getContext('2d');
+                ctx.drawImage(img, 0, 0, S, S);
+                const d = ctx.getImageData(0, 0, S, S).data, bk = {};
+                for (let i = 0; i < d.length; i += 4) {
+                    const qr = Math.round(d[i]/24)*24, qg = Math.round(d[i+1]/24)*24, qb = Math.round(d[i+2]/24)*24;
+                    const k = qr+','+qg+','+qb;
+                    if (!bk[k]) bk[k] = {r:0,g:0,b:0,n:0};
+                    bk[k].r += d[i]; bk[k].g += d[i+1]; bk[k].b += d[i+2]; bk[k].n++;
+                }
+                const sorted = Object.values(bk).sort((a,b) => b.n - a.n);
+                let accent = null, container = null;
+                for (const c of sorted) {
+                    const avg = (c.r+c.g+c.b)/3/c.n, rr=c.r/c.n, gg=c.g/c.n, bb=c.b/c.n;
+                    const mx = Math.max(rr,gg,bb), mn = Math.min(rr,gg,bb), sat = mx>0?(mx-mn)/mx:0;
+                    if (avg>40 && avg<220 && sat>0.15) { accent={r:Math.round(c.r/c.n),g:Math.round(c.g/c.n),b:Math.round(c.b/c.n)}; break; }
+                }
+                for (let i=1;i<sorted.length;i++) {
+                    const c=sorted[i], avg=(c.r+c.g+c.b)/3/c.n, rr=c.r/c.n, gg=c.g/c.n, bb=c.b/c.n;
+                    const mx=Math.max(rr,gg,bb), mn=Math.min(rr,gg,bb), sat=mx>0?(mx-mn)/mx:0;
+                    if (avg>50&&avg<210&&sat>0.12) { container={r:Math.round(c.r/c.n),g:Math.round(c.g/c.n),b:Math.round(c.b/c.n)}; break; }
+                }
+                if (!accent) accent={r:255,g:255,b:255};
+                if (!container) container=accent;
+                callback(accent, container);
+            };
+            img.onerror = function(){ callback({r:255,g:255,b:255},{r:255,g:255,b:255}); };
+            img.src = imageUrl;
+        }
 
-                // 纯数字
-                if (/^\d+$/.test(val)) return val;
+        function applyMonetTheme(accent, container) {
+            const r=accent.r, g=accent.g, b=accent.b, cr=container.r, cg=container.g, cb=container.b;
+            const root = document.documentElement;
+            root.style.setProperty('--accent-dark', 'rgb('+r+','+g+','+b+')');
+            root.style.setProperty('--accent-soft-dark', 'rgba('+r+','+g+','+b+',.12)');
+            root.style.setProperty('--accent-glow-dark', 'rgba('+r+','+g+','+b+',.25)');
+            root.style.setProperty('--accent-container-dark', 'rgba('+cr+','+cg+','+cb+',.18)');
+            root.style.setProperty('--accent-container-text-dark', 'rgb('+Math.min(255,cr+60)+','+Math.min(255,cg+60)+','+Math.min(255,cb+60)+')');
+            var dr=Math.round(r*.6), dg=Math.round(g*.6), db=Math.round(b*.6);
+            var dcr=Math.round(cr*.55), dcg=Math.round(cg*.55), dcb=Math.round(cb*.55);
+            root.style.setProperty('--accent-light', 'rgb('+dr+','+dg+','+db+')');
+            root.style.setProperty('--accent-soft-light', 'rgba('+dr+','+dg+','+db+',.08)');
+            root.style.setProperty('--accent-glow-light', 'rgba('+dr+','+dg+','+db+',.18)');
+            root.style.setProperty('--accent-container-light', 'rgba('+dcr+','+dcg+','+dcb+',.12)');
+            root.style.setProperty('--accent-container-text-light', 'rgb('+Math.max(0,dcr-30)+','+Math.max(0,dcg-30)+','+Math.max(0,dcb-30)+')');
+            var hex = '#'+[r,g,b].map(function(v){return v.toString(16).padStart(2,'0');}).join('');
+            $('#lyric-color-picker').val(hex);
+        }
 
-                // song?id=xxxx
-                let m = val.match(/[?&]id=(\d+)/);
-                if (m && m[1]) return m[1];
+        /* ═══════ 背景加载 + 取色 ═══════ */
+        var bgUrl = "https://www.dmoe.cc/random.php?type=phone&sex=1&t=" + Date.now();
+        fetch(bgUrl)
+            .then(function(response){ return response.blob(); })
+            .then(function(blob) {
+                var objectUrl = URL.createObjectURL(blob);
+                $('body').css('background-image', 'url('+objectUrl+')');
+                $('#dl-bg').attr('href', objectUrl).attr('download', 'background_'+Date.now()+'.jpg');
+                $('#dl-bg').off('click');
+                extractMonetColors(objectUrl, function(accent, container){ applyMonetTheme(accent, container); });
+            })
+            .catch(function() {
+                $('body').css('background-image', 'url('+bgUrl+')');
+                $('#dl-bg').attr('href', bgUrl).attr('target', '_blank');
+            });
 
-                // /song/xxxx
-                m = val.match(/\/song\/(\d+)/);
-                if (m && m[1]) return m[1];
+        /* ═══════ 明暗切换 ═══════ */
+        $('#theme-toggle').on('click', function () {
+            var btn = $(this);
+            btn.addClass('spin');
+            setTimeout(function(){ btn.removeClass('spin'); }, 500);
+            var isDark = $('html').attr('data-theme') === 'dark';
+            $('html').attr('data-theme', isDark ? 'light' : 'dark');
+            btn.text(isDark ? '☾' : '☀');
+        });
 
-                // 文本中任意数字
-                m = val.match(/\b\d{5,}\b/);
-                if (m && m[0]) return m[0];
+        /* ═══════ Segmented Button ═══════ */
+        $('.seg-btn').on('click', function () {
+            $('.seg-btn').removeClass('on');
+            $(this).addClass('on');
+            var type = $(this).data('type');
+            if (type === 'playlist') {
+                $('#input-label').text('歌单 ID 或链接');
+                $('#input_field').attr('placeholder', '粘贴歌单ID或完整链接');
+            } else {
+                $('#input-label').text('搜索关键词');
+                $('#input_field').attr('placeholder', '输入歌手名、歌曲名');
+            }
+            $('#input_field').val('');
+            $('#playlist-section').removeClass('show');
+            $('#playlist-card').empty();
+        });
 
+        /* ═══════ 以下为原版核心逻辑，未做任何修改 ═══════ */
+
+        function extractSongIdFromInput(input) {
+            var val = String(input || '').trim();
+            if (!val) return '';
+            if (/^\d+$/.test(val)) return val;
+            var m = val.match(/[?&]id=(\d+)/);
+            if (m && m[1]) return m[1];
+            m = val.match(/\/song\/(\d+)/);
+            if (m && m[1]) return m[1];
+            m = val.match(/\b\d{5,}\b/);
+            if (m && m[0]) return m[0];
+            return '';
+        }
+
+        function buildMusicApiData(inputValue, level) {
+            var val = String(inputValue || '').trim();
+            var data = {
+                type: 'json',
+                level: level || 'standard',
+                t: Date.now()
+            };
+            var id = extractSongIdFromInput(val);
+            if (id) {
+                data.id = id;
+                data.ids = id;
+                data.url = 'https://music.163.com/song?id=' + id;
+            } else {
+                data.url = val;
+            }
+            return data;
+        }
+
+        function normalizeMusicResponse(raw) {
+            var src = raw || {};
+            if (src && src.data && typeof src.data === 'object' && !src.url && !src.name) {
+                src = src.data;
+            }
+            if (Array.isArray(src)) src = src[0] || {};
+            var artistsFromArray = Array.isArray(src.ar) ? src.ar.map(function(a){ return a.name; }).join('/') : '';
+            var statusNum = Number(
+                src.status != null ? src.status : (raw && raw.status != null ? raw.status : (src.code != null ? src.code : (raw && raw.code != null ? raw.code : (src.url ? 200 : 0))))
+            ) || (src.url ? 200 : 0);
+            var codeNum = Number(src.code != null ? src.code : (raw && raw.code != null ? raw.code : statusNum)) || statusNum;
+            return {
+                status: statusNum,
+                code: codeNum,
+                name: src.name || src.songName || src.title || '',
+                pic: src.pic || src.cover || src.picUrl || (src.al ? src.al.picUrl : '') || '',
+                ar_name: src.ar_name || src.artist || src.author || artistsFromArray || '',
+                al_name: src.al_name || src.album || (src.al ? src.al.name : '') || '',
+                level: src.level || src.brLevel || '',
+                size: src.size || src.fileSize || '',
+                url: src.url || src.musicUrl || src.playUrl || '',
+                lyric: src.lyric || src.lrc || '',
+                tlyric: src.tlyric || src.trans || ''
+            };
+        }
+
+        function isPlayableResponse(res) {
+            return !!(res && (Number(res.status) === 200 || Number(res.code) === 200 || res.url));
+        }
+
+        async function doMusicRequest(method, data) {
+            return $.ajax({
+                url: MUSIC_API_BASE,
+                type: method,
+                data: data,
+                dataType: 'json',
+                cache: false,
+                timeout: 20000
+            });
+        }
+
+        async function requestMusicApi(inputValue, level) {
+            var baseData = buildMusicApiData(inputValue, level);
+            var variants = [];
+            var id = baseData.id || '';
+            var lv = baseData.level || 'standard';
+
+            variants.push({ method: 'GET', data: Object.assign({}, baseData) });
+            variants.push({ method: 'POST', data: Object.assign({}, baseData) });
+
+            if (id) {
+                variants.push({ method: 'GET', data: { type: 'json', level: lv, id: id, t: Date.now() + 1 } });
+                variants.push({ method: 'GET', data: { type: 'json', level: lv, ids: id, t: Date.now() + 2 } });
+                variants.push({
+                    method: 'GET',
+                    data: {
+                        type: 'json',
+                        level: lv,
+                        url: 'https://music.163.com/song?id=' + id,
+                        t: Date.now() + 3
+                    }
+                });
+            }
+
+            var lastErr = null;
+            for (var i = 0; i < variants.length; i++) {
+                try {
+                    var raw = await doMusicRequest(variants[i].method, variants[i].data);
+                    var normalized = normalizeMusicResponse(raw);
+                    if (isPlayableResponse(normalized)) {
+                        return normalized;
+                    }
+                } catch (e) {
+                    lastErr = e;
+                }
+            }
+
+            throw lastErr || new Error('解析接口返回异常');
+        }
+
+        function updateMediaSession(data) {
+            if ('mediaSession' in navigator) {
+                navigator.mediaSession.metadata = new MediaMetadata({
+                    title: data.name,
+                    artist: data.artist,
+                    album: data.album,
+                    artwork: [{ src: data.cover }]
+                });
+            }
+        }
+
+        function updatePositionState() {
+            if ('mediaSession' in navigator && aplayerInstance && aplayerInstance.audio.duration) {
+                try {
+                    navigator.mediaSession.setPositionState({
+                        duration: aplayerInstance.audio.duration,
+                        playbackRate: aplayerInstance.audio.playbackRate,
+                        position: aplayerInstance.audio.currentTime
+                    });
+                } catch (error) {}
+            }
+        }
+
+        function playNextSong() {
+            if (!isSequentialPlay && !isRandomPlay) return;
+            if (playList.length === 0) return;
+            currentSongIndex = (currentSongIndex + 1) % playList.length;
+            playSongById(playList[currentSongIndex].id);
+        }
+
+        function playPreviousSong() {
+            if (!isSequentialPlay && !isRandomPlay) return;
+            if (playList.length === 0) return;
+            currentSongIndex = (currentSongIndex - 1 + playList.length) % playList.length;
+            playSongById(playList[currentSongIndex].id);
+        }
+
+        function initializePlayer() {
+            if (aplayerInstance) return;
+            if (!$('#song-info').find('#aplayer').length) {
+                $('#song-info .card').prepend('<div id="aplayer"></div>');
+            }
+            aplayerInstance = new APlayer({
+                container: document.getElementById('aplayer'),
+                fixed: true
+            });
+            $('#aplayer').on('click', '.aplayer-icon-forward', playNextSong);
+            $('#aplayer').on('click', '.aplayer-icon-back', playPreviousSong);
+            if ('mediaSession' in navigator) {
+                navigator.mediaSession.setActionHandler('play', function(){ aplayerInstance.play(); });
+                navigator.mediaSession.setActionHandler('pause', function(){ aplayerInstance.pause(); });
+                navigator.mediaSession.setActionHandler('nexttrack', playNextSong);
+                navigator.mediaSession.setActionHandler('previoustrack', playPreviousSong);
+                navigator.mediaSession.setActionHandler('seekto', function(details){ aplayerInstance.seek(details.seekTime); });
+            }
+            aplayerInstance.on('play', function () {
+                if ('mediaSession' in navigator) navigator.mediaSession.playbackState = 'playing';
+                $('.lyric-background').css('animation-play-state', 'paused');
+            });
+            aplayerInstance.on('ended', playNextSong);
+            aplayerInstance.on('timeupdate', updatePositionState);
+            aplayerInstance.on('timeupdate', function () {
+                if (!parsedLyrics.length || $('#show-lrc-meta').hasClass('on')) return;
+                var currentTime = aplayerInstance.audio.currentTime * 1000;
+                var activeIndex = -1;
+                for (var i = 0; i < parsedLyrics.length; i++) {
+                    if (currentTime >= parsedLyrics[i][0]) activeIndex = i;
+                    else break;
+                }
+                if (activeIndex !== -1) highlightLyric(activeIndex);
+            });
+        }
+
+        function lrctrim(lyrics) {
+            var lines = String(lyrics || '').split('\n');
+            var data = [];
+            lines.forEach(function (line, index) {
+                var matches = line.match(/\[(\d{2}):(\d{2}[\.:]?\d*)]/);
+                if (matches) {
+                    var minutes = parseInt(matches[1], 10);
+                    var seconds = parseFloat(matches[2].replace(':', '.')) || 0;
+                    var timestamp = minutes * 60000 + seconds * 1000;
+                    var text = line.replace(/\[\d{2}:\d{2}[\.:]?\d*]/g, '').trim();
+                    text = text.replace(/\s\s+/g, ' ');
+                    data.push([timestamp, index, text]);
+                }
+            });
+            data.sort(function (a, b) { return a[0] - b[0]; });
+            return data;
+        }
+
+        function lrctran(lyric, tlyric) {
+            lyric = lrctrim(lyric);
+            tlyric = lrctrim(tlyric);
+            var len1 = lyric.length;
+            var len2 = tlyric.length;
+            var result = "";
+            for (var i = 0, j = 0; i < len1 && j < len2; i++) {
+                while (lyric[i][0] > tlyric[j][0] && j + 1 < len2) j++;
+                if (lyric[i][0] === tlyric[j][0]) {
+                    tlyric[j][2] = tlyric[j][2].replace('/', '');
+                    if (tlyric[j][2]) lyric[i][2] += ' [' + tlyric[j][2] + ']';
+                    j++;
+                }
+            }
+            for (var i = 0; i < len1; i++) {
+                var t = lyric[i][0];
+                result += '[' + String(Math.floor(t / 60000)).padStart(2, '0') + ':' + String(Math.floor((t % 60000) / 1000)).padStart(2, '0') + '.' + String(t % 1000).padStart(3, '0') + ']' + lyric[i][2] + '\n';
+            }
+            return result;
+        }
+
+        function extractLinks(text) {
+            var regex = /https?:\/\/\S+/g;
+            var matches = String(text || '').match(regex);
+            return matches ? matches[0] : '';
+        }
+
+        function checkValidLink(link) {
+            if (link.indexOf("http") === -1 || (link.indexOf("music.163.com") === -1 && link.indexOf("163cn.tv") === -1)) {
+                return false;
+            }
+            return true;
+        }
+
+        function extractAndCheckId(text) {
+            var link = extractLinks(text);
+            if (checkValidLink(link)) {
+                var maybeId = extractSongIdFromInput(link);
+                return maybeId || link;
+            } else {
+                var ids = String(text || '').match(/\b\d+\b/g);
+                if (ids && ids.length > 0) return ids[0];
                 return '';
             }
+        }
 
-            // 构建请求参数：同时兼容 id / ids / url
-            function buildMusicApiData(inputValue, level) {
-                const val = String(inputValue || '').trim();
-                const data = {
-                    type: 'json',
-                    level: level || 'standard',
-                    t: Date.now() // 防缓存
-                };
+        function highlightLyric(index) {
+            var $lines = $('.lyric-line');
+            var $activeLine = $lines.eq(index);
+            if ($activeLine.length && !$activeLine.hasClass('active')) {
+                $lines.removeClass('active');
+                $activeLine.addClass('active');
+                var container = $('.lyric-scroll-area');
+                var scrollTop = $activeLine[0].offsetTop - container.height() / 2 + $activeLine.height() / 2;
+                container.scrollTop(scrollTop);
+                updatePiPLyric();
+            }
+        }
 
-                const id = extractSongIdFromInput(val);
-                if (id) {
-                    data.id = id;
-                    data.ids = id;
-                    data.url = `https://music.163.com/song?id=${id}`;
+        async function openPiP() {
+            if (!('documentPictureInPicture' in window)) {
+                alert('您的浏览器不支持 Document Picture-in-Picture API。请使用最新版的 Chrome 或 Edge 浏览器。');
+                return;
+            }
+            try {
+                pipWindow = await window.documentPictureInPicture.requestWindow({ width: 500, height: 150 });
+                var style = pipWindow.document.createElement('style');
+                style.textContent = 'body{background:#0a0a10;color:#fff;height:100vh;margin:0;font-family:system-ui,-apple-system,sans-serif;overflow:hidden;user-select:none;position:relative;}#pip-bg{position:absolute;top:0;left:0;width:100%;height:100%;background-size:cover;background-position:center;filter:blur(20px) brightness(0.5);z-index:0;opacity:0;transition:opacity 0.5s;}#pip-content{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;text-align:center;padding:0 20px;}#pip-lyric{font-size:24px;font-weight:bold;line-height:1.4;transition:all 0.3s ease;}#pip-translation{font-size:16px;opacity:0.8;margin-top:8px;color:#d8e2ff;}';
+                pipWindow.document.head.appendChild(style);
+                pipWindow.document.body.innerHTML = '<div id="pip-bg"></div><div id="pip-content"><div id="pip-lyric">...</div><div id="pip-translation"></div></div>';
+                pipWindow.addEventListener('pagehide', function () {
+                    pipWindow = null;
+                    $('#open-pip').removeClass('on');
+                });
+                $('#open-pip').addClass('on');
+                updatePiPLyric();
+            } catch (err) {
+                console.error('开启画中画失败:', err);
+            }
+        }
+
+        function renderLyrics() {
+            if (!currentLyricRaw) {
+                $('#lyric').html('');
+                return;
+            }
+            var isMetaMode = $('#show-lrc-meta').hasClass('on');
+            var showFluidCover = $('#toggle-fluid-cover').is(':checked');
+
+            if (isMetaMode) {
+                $('#lyric-bg').removeClass('active');
+                $('.lyric-box').removeClass('fluid-on');
+                $('#lyric').css('text-align', 'left');
+                $('#lyric').html(currentLyricRaw.replace(/\n/g, '<br>'));
+                parsedLyrics = [];
+            } else {
+                if (showFluidCover) {
+                    $('#lyric-bg').css('background-image', 'url(' + $('#song_pic').attr('src') + ')');
+                    $('#lyric-bg').addClass('active');
+                    $('.lyric-box').addClass('fluid-on');
                 } else {
-                    data.url = val;
+                    $('#lyric-bg').removeClass('active');
+                    $('.lyric-box').removeClass('fluid-on');
                 }
-
-                return data;
-            }
-
-            function normalizeMusicResponse(raw) {
-                let src = raw || {};
-
-                if (src && src.data && typeof src.data === 'object' && !src.url && !src.name) {
-                    src = src.data;
-                }
-                if (Array.isArray(src)) src = src[0] || {};
-
-                const artistsFromArray = Array.isArray(src.ar) ? src.ar.map(a => a.name).join('/') : '';
-                const statusNum = Number(
-                    src.status ?? raw?.status ?? src.code ?? raw?.code ?? (src.url ? 200 : 0)
-                ) || (src.url ? 200 : 0);
-                const codeNum = Number(src.code ?? raw?.code ?? statusNum) || statusNum;
-
-                return {
-                    status: statusNum,
-                    code: codeNum,
-                    name: src.name || src.songName || src.title || '',
-                    pic: src.pic || src.cover || src.picUrl || src.al?.picUrl || '',
-                    ar_name: src.ar_name || src.artist || src.author || artistsFromArray || '',
-                    al_name: src.al_name || src.album || src.al?.name || '',
-                    level: src.level || src.brLevel || '',
-                    size: src.size || src.fileSize || '',
-                    url: src.url || src.musicUrl || src.playUrl || '',
-                    lyric: src.lyric || src.lrc || '',
-                    tlyric: src.tlyric || src.trans || ''
-                };
-            }
-
-            function isPlayableResponse(res) {
-                return !!(res && (Number(res.status) === 200 || Number(res.code) === 200 || res.url));
-            }
-
-            async function doMusicRequest(method, data) {
-                return $.ajax({
-                    url: MUSIC_API_BASE,
-                    type: method,
-                    data,
-                    dataType: 'json',
-                    cache: false,
-                    timeout: 20000
-                });
-            }
-
-            // 多参数 + GET/POST 兜底，避免接口只认某一种参数导致总返回默认歌曲
-            async function requestMusicApi(inputValue, level) {
-                const baseData = buildMusicApiData(inputValue, level);
-                const variants = [];
-                const id = baseData.id || '';
-                const lv = baseData.level || 'standard';
-
-                variants.push({ method: 'GET', data: { ...baseData } });
-                variants.push({ method: 'POST', data: { ...baseData } });
-
-                if (id) {
-                    variants.push({ method: 'GET', data: { type: 'json', level: lv, id, t: Date.now() + 1 } });
-                    variants.push({ method: 'GET', data: { type: 'json', level: lv, ids: id, t: Date.now() + 2 } });
-                    variants.push({
-                        method: 'GET',
-                        data: {
-                            type: 'json',
-                            level: lv,
-                            url: `https://music.163.com/song?id=${id}`,
-                            t: Date.now() + 3
-                        }
-                    });
-                }
-
-                let lastErr = null;
-                for (const v of variants) {
-                    try {
-                        const raw = await doMusicRequest(v.method, v.data);
-                        const normalized = normalizeMusicResponse(raw);
-                        if (isPlayableResponse(normalized)) {
-                            return normalized;
-                        }
-                    } catch (e) {
-                        lastErr = e;
+                $('#lyric').css('text-align', 'center');
+                parsedLyrics = lrctrim(currentLyricRaw);
+                var html = '';
+                parsedLyrics.forEach(function (line, i) {
+                    var text = line[2];
+                    var translation = '';
+                    var translationMatch = text.match(/\[(.*?)\]/);
+                    if (translationMatch) {
+                        translation = '<div class="lyric-translation">' + translationMatch[0] + '</div>';
+                        text = text.replace(/\[(.*?)\]/, '').trim();
                     }
-                }
-
-                throw lastErr || new Error('解析接口返回异常');
-            }
-
-            // 背景
-            const bgUrl = "https://www.dmoe.cc/random.php?type=phone&sex=1";
-            fetch(bgUrl)
-                .then(response => response.blob())
-                .then(blob => {
-                    const objectUrl = URL.createObjectURL(blob);
-                    $('body').css('background-image', `url(${objectUrl})`);
-                    $('#dl-bg').attr('href', objectUrl).attr('download', `background_${Date.now()}.jpg`);
-                    $('#dl-bg').off('click');
-                })
-                .catch(err => {
-                    console.error("Background fetch failed", err);
-                    $('body').css('background-image', `url(${bgUrl})`);
-                    $('#dl-bg').attr('href', bgUrl).attr('target', '_blank');
+                    html += '<div class="lyric-line" data-index="' + i + '">' + text + translation + '</div>';
                 });
-
-            function updateMediaSession(data) {
-                if ('mediaSession' in navigator) {
-                    navigator.mediaSession.metadata = new MediaMetadata({
-                        title: data.name,
-                        artist: data.artist,
-                        album: data.album,
-                        artwork: [{ src: data.cover }]
-                    });
-                }
+                $('#lyric').html(html);
             }
+            updatePiPLyric();
+        }
 
-            function updatePositionState() {
-                if ('mediaSession' in navigator && aplayerInstance && aplayerInstance.audio.duration) {
-                    try {
-                        navigator.mediaSession.setPositionState({
-                            duration: aplayerInstance.audio.duration,
-                            playbackRate: aplayerInstance.audio.playbackRate,
-                            position: aplayerInstance.audio.currentTime
-                        });
-                    } catch (error) {}
-                }
-            }
+        function updatePiPLyric() {
+            if (!pipWindow || !pipWindow.document) return;
+            var activeLine = $('.lyric-line.active');
+            var pipLyric = pipWindow.document.getElementById('pip-lyric');
+            var pipTrans = pipWindow.document.getElementById('pip-translation');
+            var pipBg = pipWindow.document.getElementById('pip-bg');
+            if (!pipLyric) return;
 
-            function playNextSong() {
-                if (!isSequentialPlay && !isRandomPlay) return;
-                if (playList.length === 0) return;
-                currentSongIndex = (currentSongIndex + 1) % playList.length;
-                playSongById(playList[currentSongIndex].id);
-            }
+            var rootStyle = getComputedStyle(document.documentElement);
+            var activeColor = rootStyle.getPropertyValue('--lyric-active-color').trim();
+            var activeBlur = rootStyle.getPropertyValue('--lyric-active-blur').trim();
+            var showFluidCover = $('#toggle-fluid-cover').is(':checked');
+            var coverUrl = $('#song_pic').attr('src');
 
-            function playPreviousSong() {
-                if (!isSequentialPlay && !isRandomPlay) return;
-                if (playList.length === 0) return;
-                currentSongIndex = (currentSongIndex - 1 + playList.length) % playList.length;
-                playSongById(playList[currentSongIndex].id);
-            }
+            pipLyric.style.color = activeColor;
+            pipLyric.style.textShadow = '0 0 ' + activeBlur + ' ' + activeColor;
 
-            function initializePlayer() {
-                if (aplayerInstance) return;
-
-                if (!$('#song-info').find('#aplayer').length) {
-                    $('#song-info').prepend('<div id="aplayer"></div>');
-                }
-
-                aplayerInstance = new APlayer({
-                    container: document.getElementById('aplayer'),
-                    fixed: true
-                });
-
-                $('#aplayer').on('click', '.aplayer-icon-forward', playNextSong);
-                $('#aplayer').on('click', '.aplayer-icon-back', playPreviousSong);
-
-                if ('mediaSession' in navigator) {
-                    navigator.mediaSession.setActionHandler('play', () => aplayerInstance.play());
-                    navigator.mediaSession.setActionHandler('pause', () => aplayerInstance.pause());
-                    navigator.mediaSession.setActionHandler('nexttrack', playNextSong);
-                    navigator.mediaSession.setActionHandler('previoustrack', playPreviousSong);
-                    navigator.mediaSession.setActionHandler('seekto', details => aplayerInstance.seek(details.seekTime));
-                }
-
-                aplayerInstance.on('play', () => {
-                    if ('mediaSession' in navigator) navigator.mediaSession.playbackState = 'playing';
-                    $('.lyric-background').css('animation-play-state', 'paused');
-                });
-
-                aplayerInstance.on('ended', playNextSong);
-                aplayerInstance.on('timeupdate', updatePositionState);
-
-                aplayerInstance.on('timeupdate', () => {
-                    if (!parsedLyrics.length || $('#show-lrc-meta').hasClass('active')) return;
-                    const currentTime = aplayerInstance.audio.currentTime * 1000;
-                    let activeIndex = -1;
-                    for (let i = 0; i < parsedLyrics.length; i++) {
-                        if (currentTime >= parsedLyrics[i][0]) activeIndex = i;
-                        else break;
-                    }
-                    if (activeIndex !== -1) highlightLyric(activeIndex);
-                });
-            }
-
-            function lrctrim(lyrics) {
-                const lines = String(lyrics || '').split('\n');
-                const data = [];
-                lines.forEach((line, index) => {
-                    const matches = line.match(/\[(\d{2}):(\d{2}[\.:]?\d*)]/);
-                    if (matches) {
-                        const minutes = parseInt(matches[1], 10);
-                        const seconds = parseFloat(matches[2].replace(':', '.')) || 0;
-                        const timestamp = minutes * 60000 + seconds * 1000;
-                        let text = line.replace(/\[\d{2}:\d{2}[\.:]?\d*]/g, '').trim();
-                        text = text.replace(/\s\s+/g, ' ');
-                        data.push([timestamp, index, text]);
-                    }
-                });
-                data.sort((a, b) => a[0] - b[0]);
-                return data;
-            }
-
-            function lrctran(lyric, tlyric) {
-                lyric = lrctrim(lyric);
-                tlyric = lrctrim(tlyric);
-                let len1 = lyric.length;
-                let len2 = tlyric.length;
-                let result = "";
-                for (let i = 0, j = 0; i < len1 && j < len2; i++) {
-                    while (lyric[i][0] > tlyric[j][0] && j + 1 < len2) j++;
-                    if (lyric[i][0] === tlyric[j][0]) {
-                        tlyric[j][2] = tlyric[j][2].replace('/', '');
-                        if (tlyric[j][2]) lyric[i][2] += ` [${tlyric[j][2]}]`;
-                        j++;
-                    }
-                }
-                for (let i = 0; i < len1; i++) {
-                    let t = lyric[i][0];
-                    result += `[${String(Math.floor(t / 60000)).padStart(2, '0')}:${String(Math.floor((t % 60000) / 1000)).padStart(2, '0')}.${String(t % 1000).padStart(3, '0')}]${lyric[i][2]}\n`;
-                }
-                return result;
-            }
-
-            function extractLinks(text) {
-                const regex = /https?:\/\/\S+/g;
-                const matches = String(text || '').match(regex);
-                return matches ? matches[0] : '';
-            }
-
-            function checkValidLink(link) {
-                if (link.indexOf("http") === -1 || (link.indexOf("music.163.com") === -1 && link.indexOf("163cn.tv") === -1)) {
-                    return false;
-                }
-                return true;
-            }
-
-            function extractAndCheckId(text) {
-                const link = extractLinks(text);
-                if (checkValidLink(link)) {
-                    const maybeId = extractSongIdFromInput(link);
-                    return maybeId || link;
+            if (pipBg) {
+                if (showFluidCover && coverUrl) {
+                    pipBg.style.backgroundImage = 'url(' + coverUrl + ')';
+                    pipBg.style.opacity = '1';
                 } else {
-                    const ids = String(text || '').match(/\b\d+\b/g);
-                    if (ids && ids.length > 0) return ids[0];
-                    return '';
+                    pipBg.style.opacity = '0';
                 }
             }
 
-            async function handleMp3Download(blob, name, artist, coverUrl, lyrics) {
-                try {
-                    const songBuffer = await blob.arrayBuffer();
-                    const writer = new ID3Writer(songBuffer);
-                    writer.setFrame('TIT2', name)
-                        .setFrame('TPE1', [artist])
-                        .setFrame('USLT', { description: 'lyrics', lyrics: lyrics || '' });
-
-                    try {
-                        const imageBuffer = await getImageBlob(coverUrl);
-                        writer.setFrame('APIC', { type: 3, data: imageBuffer, description: 'cover' });
-                    } catch (imageError) {
-                        console.error('添加封面失败，将不带封面下载:', imageError);
-                    }
-
-                    writer.addTag();
-                    const taggedBlob = writer.getBlob();
-                    const downloadUrl = URL.createObjectURL(taggedBlob);
-                    const a = document.createElement('a');
-                    a.href = downloadUrl;
-                    a.download = `${name} - ${artist}.mp3`;
-                    document.body.appendChild(a);
-                    a.click();
-                    document.body.removeChild(a);
-                    URL.revokeObjectURL(downloadUrl);
-                } catch (error) {
-                    console.error('MP3处理失败，将直接下载:', error);
-                    handleDirectDownload(blob, name, artist, false);
-                }
+            if (activeLine.length) {
+                var mainText = activeLine.contents().filter(function () { return this.nodeType === 3; }).text().trim();
+                var translation = activeLine.find('.lyric-translation').text().trim();
+                pipLyric.textContent = mainText || '...';
+                if (pipTrans) pipTrans.textContent = translation || '';
+            } else {
+                pipLyric.textContent = '...';
+                if (pipTrans) pipTrans.textContent = '';
             }
+        }
 
-            async function handleFlacDownload(blob, name, artist, coverUrl, album, lyrics) {
-                const arrayBuffer = await blob.arrayBuffer();
-                const bytes = new Uint8Array(arrayBuffer);
-                if (bytes.length < 4 || bytes[0] !== 0x66 || bytes[1] !== 0x4C || bytes[2] !== 0x61 || bytes[3] !== 0x43) {
-                    handleDirectDownload(blob, name, artist, true);
-                    return;
-                }
+        async function playSongById(songIdOrUrl) {
+            initializePlayer();
+            var level = $('#level').val();
 
-                let offset = 4;
-                let lastBlockHeaderOffset = -1;
-                let lastBlockWasFound = false;
-                while (!lastBlockWasFound && offset + 4 <= bytes.length) {
-                    const headerOffset = offset;
-                    const header0 = bytes[headerOffset];
-                    const length = (bytes[headerOffset + 1] << 16) | (bytes[headerOffset + 2] << 8) | bytes[headerOffset + 3];
-                    lastBlockWasFound = (header0 & 0x80) !== 0;
-                    offset += 4 + length;
-                    if (lastBlockWasFound) {
-                        lastBlockHeaderOffset = headerOffset;
-                        break;
-                    }
-                }
+            try {
+                var response = await requestMusicApi(songIdOrUrl, level);
+                var ok = isPlayableResponse(response);
 
-                if (lastBlockHeaderOffset < 0) {
-                    handleDirectDownload(blob, name, artist, true);
-                    return;
-                }
+                if (ok) {
+                    var processedLyrics = response.tlyric
+                        ? lrctran(response.lyric || '', response.tlyric || '')
+                        : (response.lyric || '');
+                    currentLyricRaw = processedLyrics;
 
-                const endOfMetadataOffset = offset;
+                    $('#song_name').text(response.name || '');
+                    $('#song_pic').attr('src', response.pic || '');
+                    $('#artist_names').text(response.ar_name || '');
+                    $('#song_alname').text(response.al_name || '');
+                    $('#song_level').text(response.level || '');
+                    $('#song_size').text(response.size || '');
+                    $('#song_url').attr('href', response.url || '');
+                    renderLyrics();
+                    $('#song-info').addClass('show');
 
-                function u32le(n) {
-                    const dv = new DataView(new ArrayBuffer(4));
-                    dv.setUint32(0, n, true);
-                    return new Uint8Array(dv.buffer);
-                }
-                function u32be(n) {
-                    const dv = new DataView(new ArrayBuffer(4));
-                    dv.setUint32(0, n, false);
-                    return new Uint8Array(dv.buffer);
-                }
-                function encUtf8(str) {
-                    return new TextEncoder().encode(str);
-                }
-                function buildMetadataBlock(type, isLast, content) {
-                    const header = new Uint8Array(4);
-                    header[0] = (isLast ? 0x80 : 0x00) | (type & 0x7F);
-                    const len = content.length;
-                    header[1] = (len >>> 16) & 0xFF;
-                    header[2] = (len >>> 8) & 0xFF;
-                    header[3] = len & 0xFF;
-                    const out = new Uint8Array(4 + len);
-                    out.set(header, 0);
-                    out.set(content, 4);
-                    return out;
-                }
-
-                function createVorbisCommentBlock(tags) {
-                    const vendor = encUtf8('NetEaseMusic-Web');
-                    const vendorLen = u32le(vendor.length);
-                    const fields = [];
-                    const pushField = (key, value) => {
-                        if (typeof value !== 'string') return;
-                        const s = encUtf8(`${key}=${value}`);
-                        fields.push(u32le(s.length));
-                        fields.push(s);
+                    var newSong = {
+                        name: response.name || '',
+                        artist: response.ar_name || '',
+                        album: response.al_name || '',
+                        url: response.url || '',
+                        cover: response.pic || ''
                     };
-                    pushField('TITLE', tags.TITLE || '');
-                    pushField('ARTIST', tags.ARTIST || '');
-                    if (tags.ALBUM) pushField('ALBUM', tags.ALBUM);
-                    if (tags.LYRICS) pushField('LYRICS', tags.LYRICS);
 
-                    const userCount = u32le(fields.length / 2);
-                    let totalLen = 4 + vendor.length + 4;
-                    fields.forEach(part => totalLen += part.length);
+                    aplayerInstance.list.clear();
+                    aplayerInstance.list.add(newSong);
+                    updateMediaSession(newSong);
+                    aplayerInstance.play();
+                } else {
+                    alert('播放失败：接口未返回可播放链接');
+                }
+            } catch (error) {
+                console.error('播放失败:', error);
+                alert('播放失败，请稍后重试');
+            }
+        }
 
-                    const content = new Uint8Array(totalLen);
-                    let o = 0;
-                    content.set(vendorLen, o); o += 4;
-                    content.set(vendor, o); o += vendor.length;
-                    content.set(userCount, o); o += 4;
-                    for (let i = 0; i < fields.length; i += 2) {
-                        content.set(fields[i], o); o += 4;
-                        content.set(fields[i + 1], o); o += fields[i + 1].length;
-                    }
-                    return buildMetadataBlock(4, false, content);
+        async function handleMp3Download(blob, name, artist, coverUrl, lyrics) {
+            try {
+                var songBuffer = await blob.arrayBuffer();
+                var writer = new ID3Writer(songBuffer);
+                writer.setFrame('TIT2', name)
+                    .setFrame('TPE1', [artist])
+                    .setFrame('USLT', { description: 'lyrics', lyrics: lyrics || '' });
+
+                try {
+                    var imageBuffer = await getImageBlob(coverUrl);
+                    writer.setFrame('APIC', { type: 3, data: imageBuffer, description: 'cover' });
+                } catch (imageError) {
+                    console.error('添加封面失败，将不带封面下载:', imageError);
                 }
 
-                async function createPictureBlockFromUrl(url) {
-                    try {
-                        const resp = await fetch(url);
-                        const buf = await resp.arrayBuffer();
-                        const pic = new Uint8Array(buf);
-                        const mime = (resp.headers.get('content-type') || 'image/jpeg');
-                        const mimeBytes = encUtf8(mime);
-                        const descBytes = encUtf8('cover');
-                        const parts = [];
-                        parts.push(u32be(3));
-                        parts.push(u32be(mimeBytes.length));
-                        parts.push(mimeBytes);
-                        parts.push(u32be(descBytes.length));
-                        parts.push(descBytes);
-                        parts.push(u32be(0));
-                        parts.push(u32be(0));
-                        parts.push(u32be(24));
-                        parts.push(u32be(0));
-                        parts.push(u32be(pic.length));
-                        parts.push(pic);
-                        let total = 0; parts.forEach(p => total += p.length);
-                        const content = new Uint8Array(total);
-                        let pOff = 0; for (const p of parts) { content.set(p, pOff); pOff += p.length; }
-                        return buildMetadataBlock(6, true, content);
-                    } catch (e) {
-                        return null;
-                    }
-                }
-
-                const vorbis = createVorbisCommentBlock({ TITLE: name, ARTIST: artist, ALBUM: album || '', LYRICS: lyrics || '' });
-                const picture = coverUrl ? await createPictureBlockFromUrl(coverUrl) : null;
-
-                const headBefore = bytes.subarray(0, lastBlockHeaderOffset);
-                const origLastHeader0 = bytes[lastBlockHeaderOffset] & 0x7F;
-                const headHeader = new Uint8Array([origLastHeader0]);
-                const headAfter = bytes.subarray(lastBlockHeaderOffset + 1, endOfMetadataOffset);
-
-                const vorbisBlock = buildMetadataBlock(4, picture ? false : true, vorbis.subarray(4));
-                const blocks = picture ? [vorbisBlock, picture] : [vorbisBlock];
-                const audioFrames = bytes.subarray(endOfMetadataOffset);
-
-                let newSize = headBefore.length + headHeader.length + headAfter.length;
-                blocks.forEach(b => newSize += b.length);
-                newSize += audioFrames.length;
-
-                const out = new Uint8Array(newSize);
-                let w = 0;
-                out.set(headBefore, w); w += headBefore.length;
-                out.set(headHeader, w); w += headHeader.length;
-                out.set(headAfter, w); w += headAfter.length;
-                for (const b of blocks) { out.set(b, w); w += b.length; }
-                out.set(audioFrames, w);
-
-                const outBlob = new Blob([out], { type: 'audio/flac' });
-                const downloadUrl = URL.createObjectURL(outBlob);
-                const a = document.createElement('a');
+                writer.addTag();
+                var taggedBlob = writer.getBlob();
+                var downloadUrl = URL.createObjectURL(taggedBlob);
+                var a = document.createElement('a');
                 a.href = downloadUrl;
-                a.download = `${name} - ${artist}.flac`;
+                a.download = name + ' - ' + artist + '.mp3';
                 document.body.appendChild(a);
                 a.click();
                 document.body.removeChild(a);
                 URL.revokeObjectURL(downloadUrl);
+            } catch (error) {
+                console.error('MP3处理失败，将直接下载:', error);
+                handleDirectDownload(blob, name, artist, false);
+            }
+        }
+
+        async function handleFlacDownload(blob, name, artist, coverUrl, album, lyrics) {
+            var arrayBuffer = await blob.arrayBuffer();
+            var bytes = new Uint8Array(arrayBuffer);
+            if (bytes.length < 4 || bytes[0] !== 0x66 || bytes[1] !== 0x4C || bytes[2] !== 0x61 || bytes[3] !== 0x43) {
+                handleDirectDownload(blob, name, artist, true);
+                return;
             }
 
-            function shuffleArray(array) {
-                for (let i = array.length - 1; i > 0; i--) {
-                    const j = Math.floor(Math.random() * (i + 1));
-                    [array[i], array[j]] = [array[j], array[i]];
-                }
-                return array;
-            }
-
-            function highlightLyric(index) {
-                const $lines = $('.lyric-line');
-                const $activeLine = $lines.eq(index);
-                if ($activeLine.length && !$activeLine.hasClass('active')) {
-                    $lines.removeClass('active');
-                    $activeLine.addClass('active');
-                    const container = $('.lyric-scroll-area');
-                    const scrollTop = $activeLine[0].offsetTop - container.height() / 2 + $activeLine.height() / 2;
-                    container.scrollTop(scrollTop);
-                    updatePiPLyric();
+            var offset = 4;
+            var lastBlockHeaderOffset = -1;
+            var lastBlockWasFound = false;
+            while (!lastBlockWasFound && offset + 4 <= bytes.length) {
+                var headerOffset = offset;
+                var header0 = bytes[headerOffset];
+                var length = (bytes[headerOffset + 1] << 16) | (bytes[headerOffset + 2] << 8) | bytes[headerOffset + 3];
+                lastBlockWasFound = (header0 & 0x80) !== 0;
+                offset += 4 + length;
+                if (lastBlockWasFound) {
+                    lastBlockHeaderOffset = headerOffset;
+                    break;
                 }
             }
 
-            async function openPiP() {
-                if (!('documentPictureInPicture' in window)) {
-                    alert('您的浏览器不支持 Document Picture-in-Picture API。请使用最新版的 Chrome 或 Edge 浏览器。');
-                    return;
+            if (lastBlockHeaderOffset < 0) {
+                handleDirectDownload(blob, name, artist, true);
+                return;
+            }
+
+            var endOfMetadataOffset = offset;
+
+            function u32le(n) {
+                var dv = new DataView(new ArrayBuffer(4));
+                dv.setUint32(0, n, true);
+                return new Uint8Array(dv.buffer);
+            }
+            function u32be(n) {
+                var dv = new DataView(new ArrayBuffer(4));
+                dv.setUint32(0, n, false);
+                return new Uint8Array(dv.buffer);
+            }
+            function encUtf8(str) {
+                return new TextEncoder().encode(str);
+            }
+            function buildMetadataBlock(type, isLast, content) {
+                var header = new Uint8Array(4);
+                header[0] = (isLast ? 0x80 : 0x00) | (type & 0x7F);
+                var len = content.length;
+                header[1] = (len >>> 16) & 0xFF;
+                header[2] = (len >>> 8) & 0xFF;
+                header[3] = len & 0xFF;
+                var out = new Uint8Array(4 + len);
+                out.set(header, 0);
+                out.set(content, 4);
+                return out;
+            }
+
+            function createVorbisCommentBlock(tags) {
+                var vendor = encUtf8('NetEaseMusic-Web');
+                var vendorLen = u32le(vendor.length);
+                var fields = [];
+                var pushField = function (key, value) {
+                    if (typeof value !== 'string') return;
+                    var s = encUtf8(key + '=' + value);
+                    fields.push(u32le(s.length));
+                    fields.push(s);
+                };
+                pushField('TITLE', tags.TITLE || '');
+                pushField('ARTIST', tags.ARTIST || '');
+                if (tags.ALBUM) pushField('ALBUM', tags.ALBUM);
+                if (tags.LYRICS) pushField('LYRICS', tags.LYRICS);
+
+                var userCount = u32le(fields.length / 2);
+                var totalLen = 4 + vendor.length + 4;
+                fields.forEach(function (part) { totalLen += part.length; });
+
+                var content = new Uint8Array(totalLen);
+                var o = 0;
+                content.set(vendorLen, o); o += 4;
+                content.set(vendor, o); o += vendor.length;
+                content.set(userCount, o); o += 4;
+                for (var i = 0; i < fields.length; i += 2) {
+                    content.set(fields[i], o); o += 4;
+                    content.set(fields[i + 1], o); o += fields[i + 1].length;
                 }
+                return buildMetadataBlock(4, false, content);
+            }
+
+            async function createPictureBlockFromUrl(url) {
                 try {
-                    pipWindow = await window.documentPictureInPicture.requestWindow({ width: 500, height: 150 });
-                    const style = pipWindow.document.createElement('style');
-                    style.textContent = `
-                        body { background: #1b1b1f; color: white; height: 100vh; margin: 0; font-family: system-ui, -apple-system, sans-serif; overflow: hidden; user-select: none; position: relative; }
-                        #pip-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-size: cover; background-position: center; filter: blur(20px) brightness(0.5); z-index: 0; opacity: 0; transition: opacity 0.5s; }
-                        #pip-content { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center; padding: 0 20px; }
-                        #pip-lyric { font-size: 24px; font-weight: bold; line-height: 1.4; transition: all 0.3s ease; }
-                        #pip-translation { font-size: 16px; opacity: 0.8; margin-top: 8px; color: #d8e2ff; }
-                    `;
-                    pipWindow.document.head.appendChild(style);
-                    pipWindow.document.body.innerHTML = `
-                        <div id="pip-bg"></div>
-                        <div id="pip-content">
-                            <div id="pip-lyric">...</div>
-                            <div id="pip-translation"></div>
-                        </div>
-                    `;
-                    pipWindow.addEventListener('pagehide', () => {
-                        pipWindow = null;
-                        $('#open-pip').removeClass('active');
-                    });
-                    $('#open-pip').addClass('active');
-                    updatePiPLyric();
-                } catch (err) {
-                    console.error('开启画中画失败:', err);
+                    var resp = await fetch(url);
+                    var buf = await resp.arrayBuffer();
+                    var pic = new Uint8Array(buf);
+                    var mime = resp.headers.get('content-type') || 'image/jpeg';
+                    var mimeBytes = encUtf8(mime);
+                    var descBytes = encUtf8('cover');
+                    var parts = [];
+                    parts.push(u32be(3));
+                    parts.push(u32be(mimeBytes.length));
+                    parts.push(mimeBytes);
+                    parts.push(u32be(descBytes.length));
+                    parts.push(descBytes);
+                    parts.push(u32be(0));
+                    parts.push(u32be(0));
+                    parts.push(u32be(24));
+                    parts.push(u32be(0));
+                    parts.push(u32be(pic.length));
+                    parts.push(pic);
+                    var total = 0; parts.forEach(function (p) { total += p.length; });
+                    var content = new Uint8Array(total);
+                    var pOff = 0; for (var i = 0; i < parts.length; i++) { content.set(parts[i], pOff); pOff += parts[i].length; }
+                    return buildMetadataBlock(6, true, content);
+                } catch (e) {
+                    return null;
                 }
             }
 
-            function renderLyrics() {
-                if (!currentLyricRaw) {
-                    $('#lyric').html('');
+            var vorbis = createVorbisCommentBlock({ TITLE: name, ARTIST: artist, ALBUM: album || '', LYRICS: lyrics || '' });
+            var picture = coverUrl ? await createPictureBlockFromUrl(coverUrl) : null;
+
+            var headBefore = bytes.subarray(0, lastBlockHeaderOffset);
+            var origLastHeader0 = bytes[lastBlockHeaderOffset] & 0x7F;
+            var headHeader = new Uint8Array([origLastHeader0]);
+            var headAfter = bytes.subarray(lastBlockHeaderOffset + 1, endOfMetadataOffset);
+
+            var vorbisBlock = buildMetadataBlock(4, picture ? false : true, vorbis.subarray(4));
+            var blocks = picture ? [vorbisBlock, picture] : [vorbisBlock];
+            var audioFrames = bytes.subarray(endOfMetadataOffset);
+
+            var newSize = headBefore.length + headHeader.length + headAfter.length;
+            blocks.forEach(function (b) { newSize += b.length; });
+            newSize += audioFrames.length;
+
+            var out = new Uint8Array(newSize);
+            var w = 0;
+            out.set(headBefore, w); w += headBefore.length;
+            out.set(headHeader, w); w += headHeader.length;
+            out.set(headAfter, w); w += headAfter.length;
+            for (var i = 0; i < blocks.length; i++) { out.set(blocks[i], w); w += blocks[i].length; }
+            out.set(audioFrames, w);
+
+            var outBlob = new Blob([out], { type: 'audio/flac' });
+            var downloadUrl = URL.createObjectURL(outBlob);
+            var a = document.createElement('a');
+            a.href = downloadUrl;
+            a.download = name + ' - ' + artist + '.flac';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(downloadUrl);
+        }
+
+        function handleDirectDownload(blob, name, artist, isHighQuality) {
+            var downloadUrl = URL.createObjectURL(blob);
+            var a = document.createElement('a');
+            a.href = downloadUrl;
+            a.download = name + ' - ' + artist + '.' + (isHighQuality ? 'flac' : 'mp3');
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(downloadUrl);
+        }
+
+        function getImageBlob(imageUrl) {
+            return fetch(imageUrl).then(function (response) { return response.arrayBuffer(); });
+        }
+
+        function shuffleArray(array) {
+            for (var i = array.length - 1; i > 0; i--) {
+                var j = Math.floor(Math.random() * (i + 1));
+                var temp = array[i];
+                array[i] = array[j];
+                array[j] = temp;
+            }
+            return array;
+        }
+
+        /* ═══════ 歌词控件 ═══════ */
+        $('#show-lrc-meta').on('click', function () { $(this).addClass('on'); $('#show-lrc-text').removeClass('on'); renderLyrics(); });
+        $('#show-lrc-text').on('click', function () { $(this).addClass('on'); $('#show-lrc-meta').removeClass('on'); renderLyrics(); });
+        $('#open-pip').on('click', function () { if (pipWindow) pipWindow.close(); else openPiP(); });
+        $('#toggle-lyric-settings').on('click', function () { $('#lyric-settings-panel').slideToggle(200); });
+        $('#toggle-fluid-cover').on('change', function () { renderLyrics(); });
+        $('#lyric-color-picker').on('input', function () { document.documentElement.style.setProperty('--lyric-active-color', $(this).val()); updatePiPLyric(); });
+        $('#lyric-glow-range').on('input', function () { document.documentElement.style.setProperty('--lyric-active-blur', $(this).val() + 'px'); updatePiPLyric(); });
+        $('#lyric').on('click', '.lyric-line', function () {
+            if (aplayerInstance) {
+                var index = $(this).data('index');
+                if (parsedLyrics[index]) {
+                    aplayerInstance.seek(parsedLyrics[index][0] / 1000);
+                    aplayerInstance.play();
+                }
+            }
+        });
+
+        /* ═══════ 歌单 / 搜索 ═══════ */
+        function extractPlaylistId(input) {
+            if (input.includes('playlist?id=')) {
+                var match = input.match(/playlist\?id=(\d+)/);
+                if (match && match[1]) return match[1];
+            }
+            if (/^\d+$/.test(input)) return input;
+            return '';
+        }
+
+        function escapeHtml(str) {
+            var d = document.createElement('div');
+            d.textContent = str;
+            return d.innerHTML;
+        }
+
+        $('#get-playlist-btn').on('click', function (event) {
+            event.preventDefault();
+
+            var apiType = $('.seg-btn.on').data('type');
+            var inputValue = $('#input_field').val().trim();
+            if (!inputValue) {
+                alert(apiType === 'playlist' ? '请输入歌单ID' : '请输入内容');
+                return;
+            }
+
+            $('#playlist-section').removeClass('show');
+            $('#playlist-card').empty();
+
+            var apiUrl;
+            if (apiType === 'playlist') {
+                var playlistId = extractPlaylistId(inputValue);
+                if (!playlistId) {
+                    alert('请输入有效的歌单ID或链接');
                     return;
                 }
+                apiUrl = 'https://apis.netstart.cn/music/playlist/track/all?id=' + playlistId;
+            } else {
+                apiUrl = 'https://apis.netstart.cn/music/cloudsearch?keywords=' + encodeURIComponent(inputValue);
+            }
 
-                const isMetaMode = $('#show-lrc-meta').hasClass('active');
-                const showFluidCover = $('#toggle-fluid-cover').is(':checked');
+            $.get(apiUrl, function (data) {
+                if (data.code === 200) {
+                    var songs = apiType === 'playlist' ? data.songs : data.result.songs;
+                    originalPlayList = songs;
+                    playList = originalPlayList.slice();
+                    isSequentialPlay = true;
+                    isRandomPlay = false;
 
-                if (isMetaMode) {
-                    $('#lyric-bg').removeClass('active');
-                    $('.lyric-box').removeClass('fluid-active');
-                    $('#lyric').css('text-align', 'left');
-                    $('#lyric').html(currentLyricRaw.replace(/\n/g, '<br>'));
-                    parsedLyrics = [];
-                } else {
-                    if (showFluidCover) {
-                        $('#lyric-bg').css('background-image', `url(${$('#song_pic').attr('src')})`);
-                        $('#lyric-bg').addClass('active');
-                        $('.lyric-box').addClass('fluid-active');
-                    } else {
-                        $('#lyric-bg').removeClass('active');
-                        $('.lyric-box').removeClass('fluid-active');
-                    }
-                    $('#lyric').css('text-align', 'center');
-                    parsedLyrics = lrctrim(currentLyricRaw);
-                    let html = '';
-                    parsedLyrics.forEach((line, i) => {
-                        let text = line[2];
-                        let translation = '';
-                        const translationMatch = text.match(/\[(.*?)\]/);
-                        if (translationMatch) {
-                            translation = `<div class="lyric-translation">${translationMatch[0]}</div>`;
-                            text = text.replace(/\[(.*?)\]/, '').trim();
-                        }
-                        html += `<div class="lyric-line" data-index="${i}">${text}${translation}</div>`;
+                    var resultTitle = apiType === 'playlist' ? '歌单列表' : '搜索结果';
+
+                    var playlistHtml = '<div class="pl-header">' +
+                        '<h2>' + escapeHtml(resultTitle) + ' · ' + songs.length + ' 首</h2>' +
+                        '<div class="pl-actions">' +
+                        '<button class="btn-m btn-sm btn-tonal" id="sequential-play">顺序</button>' +
+                        '<button class="btn-m btn-sm btn-ghost" id="random-play">随机</button>' +
+                        '<button class="btn-m btn-sm btn-filled" id="batch-parse">批量解析</button>' +
+                        '</div></div>' +
+                        '<div class="select-all-row"><input type="checkbox" class="chk" id="select-all-songs" /><label for="select-all-songs">全选</label></div>' +
+                        '<div class="pl-scroll" id="playlist-content">';
+
+                    songs.forEach(function (song) {
+                        var pic = song && song.al ? song.al.picUrl : '';
+                        var ar = song && song.ar && song.ar[0] ? song.ar[0].name : '未知歌手';
+                        playlistHtml += '<div class="song-row">' +
+                            '<div class="song-row-l">' +
+                            '<input type="checkbox" class="chk song-checkbox" data-song-id="' + song.id + '" />' +
+                            '<img src="' + (pic || '') + '?param=200y200" alt="" />' +
+                            '<div class="song-row-info"><div class="nm">' + escapeHtml(song.name) + '</div><div class="ar">' + escapeHtml(ar) + '</div></div>' +
+                            '</div>' +
+                            '<button class="btn-m btn-sm btn-filled play-btn" data-song-id="' + song.id + '">播放</button>' +
+                            '</div>';
                     });
-                    $('#lyric').html(html);
-                }
-                updatePiPLyric();
-            }
 
-            function updatePiPLyric() {
-                if (!pipWindow || !pipWindow.document) return;
-                const activeLine = $('.lyric-line.active');
-                const pipLyric = pipWindow.document.getElementById('pip-lyric');
-                const pipTrans = pipWindow.document.getElementById('pip-translation');
-                const pipBg = pipWindow.document.getElementById('pip-bg');
-                if (!pipLyric) return;
+                    playlistHtml += '</div>';
+                    $('#playlist-card').html(playlistHtml);
+                    $('#playlist-section').addClass('show');
 
-                const rootStyle = getComputedStyle(document.documentElement);
-                const activeColor = rootStyle.getPropertyValue('--lyric-active-color').trim();
-                const activeBlur = rootStyle.getPropertyValue('--lyric-active-blur').trim();
-                const showFluidCover = $('#toggle-fluid-cover').is(':checked');
-                const coverUrl = $('#song_pic').attr('src');
-
-                pipLyric.style.color = activeColor;
-                pipLyric.style.textShadow = `0 0 ${activeBlur} ${activeColor}`;
-
-                if (pipBg) {
-                    if (showFluidCover && coverUrl) {
-                        pipBg.style.backgroundImage = `url(${coverUrl})`;
-                        pipBg.style.opacity = '1';
-                    } else {
-                        pipBg.style.opacity = '0';
-                    }
-                }
-
-                if (activeLine.length) {
-                    const mainText = activeLine.contents().filter(function () { return this.nodeType === 3; }).text().trim();
-                    const translation = activeLine.find('.lyric-translation').text().trim();
-                    pipLyric.textContent = mainText || '...';
-                    if (pipTrans) pipTrans.textContent = translation || '';
-                } else {
-                    pipLyric.textContent = '...';
-                    if (pipTrans) pipTrans.textContent = '';
-                }
-            }
-
-            async function playSongById(songIdOrUrl) {
-                initializePlayer();
-                const level = $('#level').val();
-
-                try {
-                    const response = await requestMusicApi(songIdOrUrl, level);
-                    const ok = isPlayableResponse(response);
-
-                    if (ok) {
-                        const processedLyrics = response.tlyric
-                            ? lrctran(response.lyric || '', response.tlyric || '')
-                            : (response.lyric || '');
-                        currentLyricRaw = processedLyrics;
-
-                        $('#song_name').text(response.name || '');
-                        $('#song_pic').attr('src', response.pic || '');
-                        $('#artist_names').text(response.ar_name || '');
-                        $('#song_alname').text(response.al_name || '');
-                        $('#song_level').text(response.level || '');
-                        $('#song_size').text(response.size || '');
-                        $('#song_url').attr('href', response.url || '');
-                        renderLyrics();
-                        $('#song-info').removeClass('d-none');
-
-                        const newSong = {
-                            name: response.name || '',
-                            artist: response.ar_name || '',
-                            album: response.al_name || '',
-                            url: response.url || '',
-                            cover: response.pic || ''
-                        };
-
-                        aplayerInstance.list.clear();
-                        aplayerInstance.list.add(newSong);
-                        updateMediaSession(newSong);
-                        aplayerInstance.play();
-                    } else {
-                        alert('播放失败：接口未返回可播放链接');
-                    }
-                } catch (error) {
-                    console.error('播放失败:', error);
-                    alert('播放失败，请稍后重试');
-                }
-            }
-
-            $('#show-lrc-meta').on('click', function () {
-                $(this).addClass('active');
-                $('#show-lrc-text').removeClass('active');
-                renderLyrics();
-            });
-
-            $('#show-lrc-text').on('click', function () {
-                $(this).addClass('active');
-                $('#show-lrc-meta').removeClass('active');
-                renderLyrics();
-            });
-
-            $('#open-pip').on('click', function () {
-                if (pipWindow) pipWindow.close();
-                else openPiP();
-            });
-
-            $('#toggle-lyric-settings').on('click', function () { $('#lyric-settings-panel').slideToggle(); });
-            $('#toggle-fluid-cover').on('change', function () { renderLyrics(); });
-
-            $('#lyric-color-picker').on('input', function () {
-                document.documentElement.style.setProperty('--lyric-active-color', $(this).val());
-                updatePiPLyric();
-            });
-
-            $('#lyric-glow-range').on('input', function () {
-                document.documentElement.style.setProperty('--lyric-active-blur', $(this).val() + 'px');
-                updatePiPLyric();
-            });
-
-            $('#lyric').on('click', '.lyric-line', function () {
-                if (aplayerInstance) {
-                    const index = $(this).data('index');
-                    if (parsedLyrics[index]) {
-                        aplayerInstance.seek(parsedLyrics[index][0] / 1000);
-                        aplayerInstance.play();
-                    }
-                }
-            });
-
-            $('input[name="apiType"]').on('change', function () {
-                const apiType = $('input[name="apiType"]:checked').val();
-                const inputField = $('#input_field');
-                const submitBtn = $('#get-playlist-btn');
-                if (apiType === 'playlist') {
-                    inputField.attr('placeholder', '请输入歌单ID');
-                    submitBtn.text('GET');
-                } else {
-                    inputField.attr('placeholder', '请输入内容');
-                    submitBtn.text('GET');
-                }
-                inputField.val('');
-                $('#playlist-info').empty();
-            });
-
-            function extractPlaylistId(input) {
-                if (input.includes('playlist?id=')) {
-                    const match = input.match(/playlist\?id=(\d+)/);
-                    if (match && match[1]) return match[1];
-                }
-                if (/^\d+$/.test(input)) return input;
-                return '';
-            }
-
-            $('#get-playlist-btn').on('click', function (event) {
-                event.preventDefault();
-
-                const apiType = $('input[name="apiType"]:checked').val();
-                const inputValue = $('#input_field').val().trim();
-                if (!inputValue) {
-                    alert(apiType === 'playlist' ? '请输入歌单ID' : '请输入内容');
-                    return;
-                }
-
-                $('#playlist-info').empty();
-
-                let apiUrl;
-                if (apiType === 'playlist') {
-                    const playlistId = extractPlaylistId(inputValue);
-                    if (!playlistId) {
-                        alert('请输入有效的歌单ID或链接');
-                        return;
-                    }
-                    apiUrl = `https://apis.netstart.cn/music/playlist/track/all?id=${playlistId}`;
-                } else {
-                    apiUrl = `https://apis.netstart.cn/music/cloudsearch?keywords=${encodeURIComponent(inputValue)}`;
-                }
-
-                $.get(apiUrl, function (data) {
-                    if (data.code === 200) {
-                        const songs = apiType === 'playlist' ? data.songs : data.result.songs;
-                        originalPlayList = songs;
-                        playList = [...originalPlayList];
+                    $('#sequential-play').off('click').on('click', function () {
                         isSequentialPlay = true;
                         isRandomPlay = false;
+                        $(this).removeClass('btn-ghost').addClass('btn-tonal');
+                        $('#random-play').removeClass('btn-tonal').addClass('btn-ghost');
+                        if (playList.length > 0) {
+                            var currentSong = (currentSongIndex >= 0 && currentSongIndex < playList.length) ? playList[currentSongIndex] : null;
+                            playList = originalPlayList.slice();
+                            if (currentSong) currentSongIndex = playList.findIndex(function(s){ return s.id === currentSong.id; });
+                        }
+                    });
 
-                        const resultTitle = apiType === 'playlist' ? '歌单列表' : '搜索结果';
+                    $('#random-play').off('click').on('click', function () {
+                        isSequentialPlay = false;
+                        isRandomPlay = true;
+                        $(this).removeClass('btn-ghost').addClass('btn-tonal');
+                        $('#sequential-play').removeClass('btn-tonal').addClass('btn-ghost');
+                        if (playList.length > 0) {
+                            var currentSong = (currentSongIndex >= 0 && currentSongIndex < playList.length) ? playList[currentSongIndex] : null;
+                            playList = shuffleArray(originalPlayList.slice());
+                            if (currentSong) currentSongIndex = playList.findIndex(function(s){ return s.id === currentSong.id; });
+                        }
+                    });
 
-                        let playlistHtml = `
-                            <div class="card-form mt-3">
-                                <div class="d-flex justify-content-between align-items-center mb-3" id="playlist-header">
-                                    <div class="d-flex align-items-center">
-                                        <h1 class="mb-0 me-3">${resultTitle} (${songs.length} 首歌曲)</h1>
-                                        <div class="btn-group">
-                                            <button class="btn btn-sm btn-outline-primary active" id="sequential-play">顺序播放</button>
-                                            <button class="btn btn-sm btn-outline-primary" id="random-play">随机播放</button>
-                                            <button class="btn btn-sm btn-outline-success" id="batch-parse">批量解析</button>
-                                        </div>
-                                    </div>
-                                    <span class="toggle-icon" style="cursor: pointer;">↓</span>
-                                </div>
-                                <div class="mb-2">
-                                    <label><input type="checkbox" id="select-all-songs" /> 全选</label>
-                                </div>
-                                <div class="playlist-container" id="playlist-content">`;
+                    $('#select-all-songs').on('change', function () {
+                        $('#playlist-content .song-checkbox').prop('checked', $(this).is(':checked'));
+                    });
 
-                        songs.forEach(song => {
-                            const pic = song?.al?.picUrl || '';
-                            const ar = song?.ar?.[0]?.name || '未知歌手';
-                            playlistHtml += `
-                                <div class="song-item" style="margin: 0.5rem 0; padding: 0.75rem; border-radius: 0.75rem; display: flex; justify-content: space-between; align-items: center">
-                                    <div class="d-flex align-items-center">
-                                        <input type="checkbox" class="song-checkbox me-2" data-song-id="${song.id}" />
-                                        <img src="${pic}?param=200y200" alt="${song.name}" style="width: 50px; height: 50px; border-radius: 8px; margin-right: 15px; object-fit: cover;" />
-                                        <div>
-                                            <strong>${song.name}</strong>
-                                            <small class="text-muted"> - ${ar}</small>
-                                        </div>
-                                    </div>
-                                    <button class="btn btn-primary btn-sm play-btn" data-song-id="${song.id}" style="border-radius: 0.75rem; padding: 0.5rem 1rem;">播放</button>
-                                </div>`;
-                        });
+                    $('#playlist-content .play-btn').on('click', function () {
+                        var songId = $(this).data('song-id');
+                        currentSongIndex = playList.findIndex(function(song){ return song.id == songId; });
+                        playSongById(songId);
+                    });
 
-                        playlistHtml += `</div></div>`;
-                        $('#playlist-info').html(playlistHtml);
+                    /* ── 批量解析 ── */
+                    $('#batch-parse').off('click').on('click', async function () {
+                        var checkedSongs = $('#playlist-content .song-checkbox:checked');
+                        if (checkedSongs.length === 0) {
+                            alert('请先选择要解析的歌曲');
+                            return;
+                        }
 
-                        $('#sequential-play').off('click').on('click', function () {
-                            isSequentialPlay = true;
-                            isRandomPlay = false;
-                            $('#sequential-play').addClass('active');
-                            $('#random-play').removeClass('active');
-                            if (playList.length > 0) {
-                                const currentSong = (currentSongIndex >= 0 && currentSongIndex < playList.length) ? playList[currentSongIndex] : null;
-                                playList = [...originalPlayList];
-                                if (currentSong) currentSongIndex = playList.findIndex(s => s.id === currentSong.id);
-                            }
-                        });
+                        var loadingHtml = '<div class="card" id="parse-loading" style="margin-top:14px;">' +
+                            '<div class="card-title" style="margin-bottom:14px;">正在解析...</div>' +
+                            '<div class="prog-track"><div class="prog-bar" id="parse-progress"></div></div>' +
+                            '<p style="font-size:12px;color:var(--on-surface-faint);margin:0 0 8px;">进度: <span id="current-parse">0</span> / <span id="total-parse">0</span></p>' +
+                            '<div class="log-area" id="parse-log"></div></div>';
+                        $('#playlist-section').append(loadingHtml);
+                        $('.card:has(#parse-header)').remove();
 
-                        $('#random-play').off('click').on('click', function () {
-                            isSequentialPlay = false;
-                            isRandomPlay = true;
-                            $('#random-play').addClass('active');
-                            $('#sequential-play').removeClass('active');
-                            if (playList.length > 0) {
-                                const currentSong = (currentSongIndex >= 0 && currentSongIndex < playList.length) ? playList[currentSongIndex] : null;
-                                playList = shuffleArray([...originalPlayList]);
-                                if (currentSong) currentSongIndex = playList.findIndex(s => s.id === currentSong.id);
-                            }
-                        });
+                        try {
+                            var level = $('#level').val();
+                            var results = [];
+                            var total = checkedSongs.length;
+                            $('#total-parse').text(total);
 
-                        $('#playlist-header').on('click', function (e) {
-                            if ($(e.target).closest('.btn-group').length === 0) {
-                                const content = $('#playlist-content');
-                                const icon = $(this).find('.toggle-icon');
-                                if (content.is(':visible')) {
-                                    content.slideUp();
-                                    icon.text('→');
-                                } else {
-                                    content.slideDown();
-                                    icon.text('↓');
+                            for (var i = 0; i < total; i++) {
+                                var songId = $(checkedSongs[i]).data('song-id');
+                                var songName = $(checkedSongs[i]).closest('.song-row').find('.nm').text();
+                                $('#current-parse').text(i + 1);
+                                var progress = Math.round(((i + 1) / total) * 100);
+                                $('#parse-progress').css('width', progress + '%');
+
+                                try {
+                                    $('#parse-log').prepend('<div class="log-wait">⏳ ' + escapeHtml(songName) + '</div>');
+                                    var response = await requestMusicApi(songId, level);
+
+                                    if (isPlayableResponse(response)) {
+                                        results.push(response);
+                                        $('#parse-log').prepend('<div class="log-ok">✅ ' + escapeHtml(songName) + '</div>');
+                                    } else {
+                                        $('#parse-log').prepend('<div class="log-fail">❌ ' + escapeHtml(songName) + '</div>');
+                                    }
+                                } catch (error) {
+                                    console.error('解析歌曲 ' + songId + ' 失败:', error);
+                                    $('#parse-log').prepend('<div class="log-fail">❌ ' + escapeHtml(songName) + '</div>');
                                 }
-                            }
-                        });
 
-                        $('#select-all-songs').on('change', function () {
-                            $('#playlist-content .song-checkbox').prop('checked', $(this).is(':checked'));
-                        });
-
-                        $('#playlist-content .play-btn').on('click', function () {
-                            const songId = $(this).data('song-id');
-                            currentSongIndex = playList.findIndex(song => song.id == songId);
-                            playSongById(songId);
-                        });
-
-                        // 批量解析
-                        $('#batch-parse').off('click').on('click', async function () {
-                            const checkedSongs = $('#playlist-content .song-checkbox:checked');
-                            if (checkedSongs.length === 0) {
-                                alert('请先选择要解析的歌曲');
-                                return;
+                                await new Promise(function (resolve) { setTimeout(resolve, 900); });
                             }
 
-                            const loadingHtml = `
-                                <div class="card-form mt-3" id="parse-loading">
-                                    <div class="text-center">
-                                        <div class="progress mb-3" style="height: 20px;">
-                                            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 0%;" id="parse-progress">0%</div>
-                                        </div>
-                                        <p class="mt-2">正在解析第 <span id="current-parse">0</span> / <span id="total-parse">0</span> 首</p>
-                                        <div id="parse-status" class="mt-2 text-start">
-                                            <div style="max-height: 150px; overflow-y: auto;">
-                                                <small class="text-muted">解析状态：</small>
-                                                <div id="parse-log"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>`;
-                            $('#playlist-info').append(loadingHtml);
-                            $('#parse-results').remove();
-                            $('.card-form.mt-3:has(#parse-header)').remove();
+                            setTimeout(function () {
+                                $('#parse-loading').remove();
+                                var HQ = ['SQ', '无损音质', 'Hi-Res', 'Hires音质', '沉浸环绕声', '高清环绕声', '超清母带'];
+                                var resultHtml = '<div class="card" style="margin-top:14px;">' +
+                                    '<div class="pl-header" id="parse-header">' +
+                                    '<h2>解析结果 · ' + results.length + ' 首</h2>' +
+                                    '<button class="btn-m btn-sm btn-filled" id="batch-download-all">批量下载</button>' +
+                                    '</div>' +
+                                    '<div class="pl-scroll" id="parse-results">';
 
-                            try {
-                                const level = $('#level').val();
-                                const results = [];
-                                const total = checkedSongs.length;
-                                $('#total-parse').text(total);
+                                results.forEach(function (song) {
+                                    var safeLyric = (song.lyric || '').replace(/"/g, '&quot;');
+                                    resultHtml += '<div class="parse-row">' +
+                                        '<div class="song-row-l">' +
+                                        '<img src="' + song.pic + '" alt="" style="width:40px;height:40px;border-radius:8px;object-fit:cover;" />' +
+                                        '<div class="song-row-info"><div class="nm">' + escapeHtml(song.name) + '</div>' +
+                                        '<div class="ar">' + escapeHtml(song.ar_name) + '</div>' +
+                                        '<div class="ml">' + escapeHtml(song.level) + ' · ' + escapeHtml(song.size) + '</div></div></div>' +
+                                        '<a href="' + song.url + '" class="btn-m btn-sm btn-ghost parse-download-btn" ' +
+                                        'data-name="' + escapeHtml(song.name) + '" data-artist="' + escapeHtml(song.ar_name) + '" data-cover="' + song.pic + '" ' +
+                                        'data-album="' + escapeHtml(song.al_name || '') + '" data-level="' + escapeHtml(song.level) + '">' +
+                                        '<input type="hidden" class="song-lyrics" value="' + safeLyric + '" />' +
+                                        '下载</a></div>';
+                                });
 
-                                for (let i = 0; i < total; i++) {
-                                    const songId = $(checkedSongs[i]).data('song-id');
-                                    const songName = $(checkedSongs[i]).closest('.song-item').find('strong').text();
-                                    $('#current-parse').text(i + 1);
-                                    const progress = Math.round(((i + 1) / total) * 100);
-                                    $('#parse-progress').css('width', `${progress}%`).text(`${progress}%`);
+                                resultHtml += '</div></div>';
+                                $('#playlist-section').append(resultHtml);
+
+                                $('.parse-download-btn').on('click', async function (e) {
+                                    e.preventDefault();
+                                    var url = $(this).attr('href');
+                                    var name = $(this).data('name');
+                                    var artist = $(this).data('artist');
+                                    var cover = $(this).data('cover');
+                                    var album = $(this).data('album') || '';
+                                    var lvl = $(this).data('level') || '';
+                                    var lyrics = ($(this).find('.song-lyrics').val() || '').replace(/\n/g, '\r\n');
+                                    var isHighQuality = HQ.includes(lvl);
 
                                     try {
-                                        $('#parse-log').prepend(`<div class="text-primary"><small>⏳ 正在解析: ${songName}</small></div>`);
-                                        const response = await requestMusicApi(songId, level);
-
-                                        if (isPlayableResponse(response)) {
-                                            results.push(response);
-                                            $('#parse-log').prepend(`<div class="text-success"><small>✅ 解析成功: ${songName}</small></div>`);
-                                        } else {
-                                            $('#parse-log').prepend(`<div class="text-danger"><small>❌ 解析失败: ${songName}</small></div>`);
-                                        }
+                                        var blob = await fetch(url).then(function (res) { return res.blob(); });
+                                        if (isHighQuality) await handleFlacDownload(blob, name, artist, cover, album, lyrics);
+                                        else await handleMp3Download(blob, name, artist, cover, lyrics);
                                     } catch (error) {
-                                        console.error(`解析歌曲 ${songId} 失败:`, error);
-                                        $('#parse-log').prepend(`<div class="text-danger"><small>❌ 解析失败: ${songName} (${error.message})</small></div>`);
+                                        console.error('下载失败:', error);
+                                        window.open(url, '_blank');
                                     }
+                                });
 
-                                    await new Promise(resolve => setTimeout(resolve, 900));
-                                }
+                                $('#batch-download-all').on('click', async function () {
+                                    var buttons = $('.parse-download-btn');
+                                    if (buttons.length === 0) return;
 
-                                setTimeout(() => {
-                                    $('#parse-loading').remove();
-                                    let resultHtml = `
-                                        <div class="card-form mt-3">
-                                            <div class="d-flex justify-content-between align-items-center mb-3" id="parse-header">
-                                                <div class="d-flex align-items-center">
-                                                    <h1 class="mb-0 me-3">解析结果 (${results.length}首)</h1>
-                                                    <button class="btn btn-primary btn-sm" id="batch-download-all">批量下载全部</button>
-                                                </div>
-                                                <span class="toggle-icon" style="cursor: pointer;">↓</span>
-                                            </div>
-                                            <div class="playlist-container" id="parse-results">`;
-
-                                    results.forEach(song => {
-                                        const safeLyric = (song.lyric || '').replace(/"/g, '&quot;');
-                                        resultHtml += `
-                                            <div class="song-item" style="margin: 0.5rem 0; padding: 0.75rem; border-radius: 0.75rem; display: flex; justify-content: space-between; align-items: center">
-                                                <div class="d-flex align-items-center">
-                                                    <img src="${song.pic}" alt="${song.name}" style="width: 50px; height: 50px; border-radius: 8px; margin-right: 15px;" />
-                                                    <div>
-                                                        <strong>${song.name}</strong>
-                                                        <small class="text-muted"> - ${song.ar_name}</small>
-                                                        <div><small class="text-muted">音质：${song.level} | 大小：${song.size}</small></div>
-                                                    </div>
-                                                </div>
-                                                <a href="${song.url}" class="btn btn-sm btn-outline-primary parse-download-btn"
-                                                   data-name="${song.name}" data-artist="${song.ar_name}" data-cover="${song.pic}"
-                                                   data-album="${song.al_name || ''}" data-level="${song.level}">
-                                                    <input type="hidden" class="song-lyrics" value="${safeLyric}" />
-                                                    下载
-                                                </a>
-                                            </div>`;
-                                    });
-
-                                    resultHtml += `</div></div>`;
-                                    $('#playlist-info').append(resultHtml);
-
-                                    $('#parse-header').on('click', function (e) {
-                                        if (!$(e.target).closest('.btn-group').length && !$(e.target).hasClass('btn')) {
-                                            const content = $('#parse-results');
-                                            const icon = $(this).find('.toggle-icon');
-                                            if (content.is(':visible')) {
-                                                content.slideUp();
-                                                icon.text('→');
-                                            } else {
-                                                content.slideDown();
-                                                icon.text('↓');
-                                            }
-                                        }
-                                    });
-
-                                    $('.parse-download-btn').on('click', async function (e) {
-                                        e.preventDefault();
-                                        const url = $(this).attr('href');
-                                        const name = $(this).data('name');
-                                        const artist = $(this).data('artist');
-                                        const cover = $(this).data('cover');
-                                        const album = $(this).data('album') || '';
-                                        const level = $(this).data('level') || '';
-                                        const lyrics = ($(this).find('.song-lyrics').val() || '').replace(/\n/g, '\r\n');
-
-                                        const isHighQuality = ['SQ', '无损音质', 'Hi-Res', 'Hires音质', '沉浸环绕声', '高清环绕声', '超清母带'].includes(level);
-
+                                    for (var i = 0; i < buttons.length; i++) {
+                                        var button = $(buttons[i]);
                                         try {
-                                            const blob = await fetch(url).then(res => res.blob());
+                                            var url = button.attr('href');
+                                            var name = button.data('name');
+                                            var artist = button.data('artist');
+                                            var cover = button.data('cover');
+                                            var album = button.data('album') || '';
+                                            var lvl = button.data('level') || '';
+                                            var lyrics = (button.find('.song-lyrics').val() || '').replace(/\r\n/g, '\n').replace(/\n/g, '\r\n');
+                                            var isHighQuality = HQ.includes(lvl);
+
+                                            button.text('...').prop('disabled', true);
+                                            var blob = await fetch(url).then(function (res) { return res.blob(); });
+
                                             if (isHighQuality) await handleFlacDownload(blob, name, artist, cover, album, lyrics);
                                             else await handleMp3Download(blob, name, artist, cover, lyrics);
+
+                                            button.text('✓').css('color', '#34a853');
                                         } catch (error) {
                                             console.error('下载失败:', error);
-                                            try {
-                                                const fallbackBlob = await fetch(url).then(res => res.blob());
-                                                handleDirectDownload(fallbackBlob, name, artist, isHighQuality);
-                                            } catch (_) {
-                                                window.open(url, '_blank');
-                                            }
+                                            button.text('✗').css('color', '#ea4335');
                                         }
-                                    });
-
-                                    $('#batch-download-all').on('click', async function () {
-                                        const buttons = $('.parse-download-btn');
-                                        if (buttons.length === 0) return;
-
-                                        for (let i = 0; i < buttons.length; i++) {
-                                            const button = $(buttons[i]);
-                                            try {
-                                                const url = button.attr('href');
-                                                const name = button.data('name');
-                                                const artist = button.data('artist');
-                                                const cover = button.data('cover');
-                                                const album = button.data('album') || '';
-                                                const level = button.data('level') || '';
-                                                const lyrics = (button.find('.song-lyrics').val() || '').replace(/\r\n/g, '\n').replace(/\n/g, '\r\n');
-                                                const isHighQuality = ['SQ', '无损音质', 'Hi-Res', 'Hires音质', '沉浸环绕声', '高清环绕声', '超清母带'].includes(level);
-
-                                                button.text('下载中...').prop('disabled', true);
-                                                const blob = await fetch(url).then(res => res.blob());
-
-                                                if (isHighQuality) await handleFlacDownload(blob, name, artist, cover, album, lyrics);
-                                                else await handleMp3Download(blob, name, artist, cover, lyrics);
-
-                                                button.text('已下载').removeClass('btn-outline-primary').addClass('btn-success');
-                                            } catch (error) {
-                                                console.error('下载失败:', error);
-                                                button.text('下载失败').removeClass('btn-outline-primary').addClass('btn-danger');
-                                            }
-                                            await new Promise(resolve => setTimeout(resolve, 900));
-                                        }
-                                    });
-                                }, 800);
-                            } catch (error) {
-                                console.error('批量解析失败:', error);
-                                $('#parse-log').prepend(`<div class="text-danger"><small>❌ 批量解析失败: ${error.message}</small></div>`);
-                                alert('批量解析失败，请稍后重试');
-                            }
-                        });
-                    } else {
-                        alert(apiType === 'playlist' ? '获取歌单失败' : '搜索失败');
-                    }
-                });
-            });
-
-            $('#query-form').on('submit', function (event) {
-                event.preventDefault();
-
-                const songIds = $('#song_ids').val();
-                const validId = extractAndCheckId(songIds);
-                if (!validId) {
-                    alert('请输入有效的歌曲ID或链接');
-                    return;
-                }
-
-                playList = [];
-                originalPlayList = [];
-                currentSongIndex = -1;
-                isSequentialPlay = false;
-                isRandomPlay = false;
-                $('#sequential-play, #random-play').removeClass('active');
-
-                playSongById(validId);
-            });
-
-            function getImageBlob(imageUrl) {
-                return fetch(imageUrl).then(response => response.arrayBuffer());
-            }
-
-            $('#song_url').on('click', function (e) {
-                e.preventDefault();
-                const url = $(this).attr('href');
-                const name = $('#song_name').text();
-                const artist = $('#artist_names').text();
-                const cover = $('#song_pic').attr('src');
-                const album = $('#song_alname').text();
-                const level = $('#song_level').text();
-                const lyrics = ($('#lyric').html() || '').replace(/<br\s*\/?>/gi, '\r\n');
-
-                const isHighQuality = ['lossless', 'hires', 'sky', 'jyeffect', 'jymaster', 'SQ', 'Hi-Res', 'Hires音质', '沉浸环绕声', '高清环绕声', '超清母带', '无损音质'].includes(level);
-
-                fetch(url)
-                    .then(response => {
-                        if (!response.ok) throw new Error('网络请求失败');
-                        return response.blob();
-                    })
-                    .then(async blob => {
-                        try {
-                            if (isHighQuality) await handleFlacDownload(blob, name, artist, cover, album, lyrics);
-                            else await handleMp3Download(blob, name, artist, cover, lyrics);
+                                        await new Promise(function (resolve) { setTimeout(resolve, 900); });
+                                    }
+                                });
+                            }, 800);
                         } catch (error) {
-                            console.error('处理下载失败:', error);
-                            handleDirectDownload(blob, name, artist, isHighQuality);
+                            console.error('批量解析失败:', error);
+                            alert('批量解析失败，请稍后重试');
                         }
-                    })
-                    .catch(error => {
-                        console.error('下载失败:', error);
-                        alert('下载失败，请稍后重试');
                     });
-            });
-
-            function handleDirectDownload(blob, name, artist, isHighQuality) {
-                const downloadUrl = URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = downloadUrl;
-                a.download = `${name} - ${artist}.${isHighQuality ? 'flac' : 'mp3'}`;
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-                URL.revokeObjectURL(downloadUrl);
-            }
-
-            $(window).on('unload', () => {
-                if (pipWindow) pipWindow.close();
+                } else {
+                    alert(apiType === 'playlist' ? '获取歌单失败' : '搜索失败');
+                }
             });
         });
+
+        /* ═══════ 单曲解析 ═══════ */
+        $('#query-form').on('submit', function (event) {
+            event.preventDefault();
+
+            var songIds = $('#song_ids').val();
+            var validId = extractAndCheckId(songIds);
+            if (!validId) {
+                alert('请输入有效的歌曲ID或链接');
+                return;
+            }
+
+            playList = [];
+            originalPlayList = [];
+            currentSongIndex = -1;
+            isSequentialPlay = false;
+            isRandomPlay = false;
+
+            playSongById(validId);
+        });
+
+        /* ═══════ 下载按钮 ═══════ */
+        $('#song_url').on('click', function (e) {
+            e.preventDefault();
+            var url = $(this).attr('href');
+            var name = $('#song_name').text();
+            var artist = $('#artist_names').text();
+            var cover = $('#song_pic').attr('src');
+            var album = $('#song_alname').text();
+            var level = $('#song_level').text();
+            var lyrics = ($('#lyric').html() || '').replace(/<br\s*\/?>/gi, '\r\n');
+
+            var isHighQuality = ['lossless', 'hires', 'sky', 'jyeffect', 'jymaster', 'SQ', 'Hi-Res', 'Hires音质', '沉浸环绕声', '高清环绕声', '超清母带', '无损音质'].includes(level);
+
+            fetch(url)
+                .then(function (response) {
+                    if (!response.ok) throw new Error('网络请求失败');
+                    return response.blob();
+                })
+                .then(async function (blob) {
+                    try {
+                        if (isHighQuality) await handleFlacDownload(blob, name, artist, cover, album, lyrics);
+                        else await handleMp3Download(blob, name, artist, cover, lyrics);
+                    } catch (error) {
+                        console.error('处理下载失败:', error);
+                        handleDirectDownload(blob, name, artist, isHighQuality);
+                    }
+                })
+                .catch(function (error) {
+                    console.error('下载失败:', error);
+                    alert('下载失败，请稍后重试');
+                });
+        });
+
+        $(window).on('unload', function () {
+            if (pipWindow) pipWindow.close();
+        });
+    });
     </script>
 </body>
 </html>
